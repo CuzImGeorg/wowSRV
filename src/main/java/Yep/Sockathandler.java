@@ -1,3 +1,5 @@
+package Yep;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,6 +20,7 @@ public class Sockathandler {
         while (true) {
             try {
                 clientSocket = serverSocket.accept();
+                Start.getConnectedUserMgr().addUser(new ConnectedUser(clientSocket));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
