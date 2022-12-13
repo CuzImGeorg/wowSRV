@@ -11,21 +11,29 @@ public class Sockathandler {
     private int  port = 6969;
     public void start() {
 
-        try {
-            serverSocket = new ServerSocket(port);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        while (true) {
+        Thread t = new Thread(()-> {
             try {
-                clientSocket = serverSocket.accept();
-                Start.getConnectedUserMgr().addUser(new ConnectedUser(clientSocket));
+                serverSocket = new ServerSocket(port);
+                System.out.println("Opend Server Socket");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            while (true) {
+                try {
+                    clientSocket = serverSocket.accept();
+                    System.out.println("new Client Connect " + clientSocket.getInetAddress().getHostAddress());
+                    Start.getConnectedUserMgr().addUser(new ConnectedUser(clientSocket));
+                    for(ConnectedUser u : Start.getConnectedUserMgr().getConnectedUsers()) {
+                        System.out.println(u.getSocket().getInetAddress().getHostAddress());
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
-        }
+            }
+        });
+        t.start();
+
 
     }
 }

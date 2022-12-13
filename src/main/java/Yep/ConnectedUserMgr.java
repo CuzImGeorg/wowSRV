@@ -3,7 +3,7 @@ package Yep;
 import java.util.ArrayList;
 
 public class ConnectedUserMgr {
-    private ArrayList<ConnectedUser> connectedUsers;
+    private ArrayList<ConnectedUser> connectedUsers = new ArrayList<>();
 
 
     public ArrayList<ConnectedUser> getConnectedUsers() {

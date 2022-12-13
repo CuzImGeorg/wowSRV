@@ -1,7 +1,5 @@
 package Yep;
 
-import UserMgr.UserManager;
-
 public class Start {
 
     private static ConnectedUserMgr connectedUserMgr;

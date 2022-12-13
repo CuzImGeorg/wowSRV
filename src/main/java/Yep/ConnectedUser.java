@@ -1,10 +1,10 @@
 package Yep;
 
-import UserMgr.User;
 import org.hibernate.Session;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ConnectedUser {
     private User user;
@@ -14,15 +14,18 @@ public class ConnectedUser {
 
     public ConnectedUser(Socket s) {
         this.socket = s;
+        start();
     }
 
     public void start() {
        Thread t = new Thread( ()-> {
            try {
-               InputStream inputStream = socket.getInputStream();
-               objectInputStream = new ObjectInputStream(inputStream);
+
                OutputStream outputStream = socket.getOutputStream();
                objectOutputStream = new ObjectOutputStream(outputStream);
+               InputStream inputStream = socket.getInputStream();
+               objectInputStream = new ObjectInputStream(socket.getInputStream());
+
 
            } catch (IOException e) {
                throw new RuntimeException(e);
@@ -31,8 +34,12 @@ public class ConnectedUser {
                try {
                    SenderObject object = (SenderObject) objectInputStream.readObject();
                     handleClient(object);
+               } catch (SocketException e) {
+                   Start.getConnectedUserMgr().getConnectedUsers().remove(this);
+
                } catch (IOException | ClassNotFoundException e) {
                    throw new RuntimeException(e);
+
                }
                try {
                    Thread.sleep(40);
@@ -42,7 +49,7 @@ public class ConnectedUser {
 
            }
        });
-
+        t.start();
     }
 
     public void handleClient(SenderObject senderObject) {
@@ -59,10 +66,18 @@ public class ConnectedUser {
             }
             case REQUESTUSER -> {
                 try {
-                    objectOutputStream.writeObject(Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword()));
+                    SenderObject s = new SenderObject(Instruction.REQUESTUSER);
+                    s.setUser(Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword()));
+                    objectOutputStream.writeObject(s);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+            }
+            case UPDATEUSER -> {
+                Session session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                session.beginTransaction();
+                session.update(senderObject.getUser());
+                session.getTransaction().commit();
             }
             default -> {
                 return;
@@ -70,4 +85,35 @@ public class ConnectedUser {
         }
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public ObjectInputStream getObjectInputStream() {
+        return objectInputStream;
+    }
+
+    public void setObjectInputStream(ObjectInputStream objectInputStream) {
+        this.objectInputStream = objectInputStream;
+    }
+
+    public ObjectOutputStream getObjectOutputStream() {
+        return objectOutputStream;
+    }
+
+    public void setObjectOutputStream(ObjectOutputStream objectOutputStream) {
+        this.objectOutputStream = objectOutputStream;
+    }
 }

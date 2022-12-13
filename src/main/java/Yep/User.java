@@ -1,10 +1,26 @@
-package UserMgr;
+/*
+        * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+        * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+        */
+        package Yep;
 
-public class User {
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Set;
+
+/**
+ *
+ * @author HP
+ */
+public class User implements Serializable {
+
     private String username, password, description, status;
-    private int level, xp;
+    private int id, level, xp;
     private String lastlogon, createdate;
 
+    public User(){
+
+    }
     public User(String username, String password, String description, String status, int level, int xp, String lastlogon, String createdate) {
         this.username = username;
         this.password = password;
@@ -60,8 +76,8 @@ public class User {
         return createdate;
     }
 
-    public void setCreatedate(String createdate) {
-        this.createdate = createdate;
+    public void setCreatedate() {
+        this.createdate = String.valueOf(LocalDateTime.now());
     }
 
     public String getUsername() {
@@ -80,4 +96,16 @@ public class User {
         this.password = password;
     }
 
+
+    public void setCreatedate(String createdate) {
+        this.createdate = createdate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

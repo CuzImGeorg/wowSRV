@@ -1,8 +1,8 @@
 package Yep;
 
-import UserMgr.User;
+import java.io.Serializable;
 
-public class SenderObject {
+public class SenderObject  implements Serializable {
     private Instruction instruction;
     private User user;
 
