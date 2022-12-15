@@ -1,23 +1,24 @@
-package Lobby;
+package Queue;
 
 import Charackter.Charackter;
-import Yep.ConnectedUser;
+import Yep.User;
 
-public class LobbyUser {
-    private ConnectedUser user;
+public class QueueUser {
+    private User user;
     private Charackter charackter;
     private int team;
 
-    public  LobbyUser(ConnectedUser user) {
+    public QueueUser(User user, Charackter charackter, int team) {
         this.user = user;
+        this.charackter = charackter;
+        this.team = team;
     }
 
-
-    public ConnectedUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(ConnectedUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

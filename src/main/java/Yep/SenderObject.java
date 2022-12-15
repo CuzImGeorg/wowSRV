@@ -1,6 +1,7 @@
 package Yep;
 
 import Lobby.LobbyUser;
+import Queue.QueueUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ public class SenderObject  implements Serializable {
     private Instruction instruction;
     private User user;
     private int code;
-    private ArrayList<LobbyUser> lobbyUsers;
+    private ArrayList<QueueUser> queueUsers;
 
     public Instruction getInstruction() {
         return instruction;
@@ -37,11 +38,11 @@ public class SenderObject  implements Serializable {
         this.code = code;
     }
 
-    public ArrayList<LobbyUser> getLobbyUsers() {
-        return lobbyUsers;
+    public ArrayList<QueueUser> getQueueUsers() {
+        return queueUsers;
     }
 
-    public void setLobbyUsers(ArrayList<LobbyUser> lobbyUsers) {
-        this.lobbyUsers = lobbyUsers;
+    public void setQueueUsers(ArrayList<QueueUser> queueUsers) {
+        this.queueUsers = queueUsers;
     }
 }
