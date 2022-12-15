@@ -67,7 +67,18 @@ public class ConnectedUser {
             case REQUESTUSER -> {
                 try {
                     SenderObject s = new SenderObject(Instruction.REQUESTUSER);
-                    s.setUser(Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword()));
+                    for(ConnectedUser cu : Start.getConnectedUserMgr().getConnectedUsers()) {
+                        if(cu.getUser() != null) {
+                            if(cu.getUser().getUsername().equals(senderObject.getUser().getUsername())) {
+                                s.setCode(69);
+                                objectOutputStream.writeObject(s);
+                                return;
+                            }
+                        }
+
+                    }
+                    this.user = Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword());
+                    s.setUser(user);
                     objectOutputStream.writeObject(s);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -78,6 +89,9 @@ public class ConnectedUser {
                 session.beginTransaction();
                 session.update(senderObject.getUser());
                 session.getTransaction().commit();
+            }
+            case JOINQUEUE -> {
+                Start.getQueue().joinQueue(this);
             }
             default -> {
                 return;

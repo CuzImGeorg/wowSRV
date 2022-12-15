@@ -5,6 +5,8 @@ public enum Instruction {
         DELETEUSER,
         REQUESTUSER,
         UPDATEUSER,
+        JOINQUEUE,
+
 
 
 }
