@@ -1,6 +1,6 @@
 package Yep;
 
-import Lobby.LobbyUser;
+import Charackter.Character;
 import Queue.QueueUser;
 
 import java.io.Serializable;
@@ -11,6 +11,8 @@ public class SenderObject  implements Serializable {
     private User user;
     private int code;
     private ArrayList<QueueUser> queueUsers;
+    private Character character;
+
 
     public Instruction getInstruction() {
         return instruction;
@@ -44,5 +46,13 @@ public class SenderObject  implements Serializable {
 
     public void setQueueUsers(ArrayList<QueueUser> queueUsers) {
         this.queueUsers = queueUsers;
+    }
+
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 }

@@ -12,7 +12,7 @@ public class Queue {
 
 
     public Queue() {
-
+        users = new ArrayList<>();
         checkForPlayers();
     }
 
@@ -26,15 +26,26 @@ public class Queue {
         Thread t = new Thread(()-> {
             while(true) {
                 if(users.size() >= 6) {
+                    System.out.println("try start");
                     ArrayList<ConnectedUser> cuser = new ArrayList<>();
                     for (int i = 0; i < 6; i++) {
                         cuser.add(users.get(i));
-                        users.remove(users.get(i));
                     }
+                    for (ConnectedUser cu: cuser ) {
+                        users.remove(cu);
+                    }
+
+                    System.out.println("Lobby started");
                     Start.getLobbyMgr().createLobby(cuser);
+
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
-
+        t.start();
     }
 }

@@ -1,16 +1,18 @@
 package Queue;
 
-import Charackter.Charackter;
+import Charackter.Character;
 import Yep.User;
 
-public class QueueUser {
+import java.io.Serializable;
+
+public class QueueUser implements Serializable {
     private User user;
-    private Charackter charackter;
+    private Character character;
     private int team;
 
-    public QueueUser(User user, Charackter charackter, int team) {
+    public QueueUser(User user, Character character, int team) {
         this.user = user;
-        this.charackter = charackter;
+        this.character = character;
         this.team = team;
     }
 
@@ -22,12 +24,12 @@ public class QueueUser {
         this.user = user;
     }
 
-    public Charackter getCharackter() {
-        return charackter;
+    public Character getCharackter() {
+        return character;
     }
 
-    public void setCharackter(Charackter charackter) {
-        this.charackter = charackter;
+    public void setCharackter(Character character) {
+        this.character = character;
     }
 
     public int getTeam() {

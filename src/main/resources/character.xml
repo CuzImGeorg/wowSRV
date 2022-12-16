@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="" table="character" >
+        <id name="username" type="string">
+            <column name="username" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" />
+        </property>
+        <property name="level" type="int">
+            <column name="level" />
+        </property>
+        <property name="xp" type="int">
+            <column name="xp" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" />
+        </property>
+        <property name="lastlogon" type="string">
+            <column name="lastlogon" />
+        </property>
+        <property name="createdate" type="string">
+            <column name="createdate" />
+        </property>
+    </class>
+
+</hibernate-mapping>

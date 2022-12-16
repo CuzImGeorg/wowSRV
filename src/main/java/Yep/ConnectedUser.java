@@ -1,5 +1,6 @@
 package Yep;
 
+import Charackter.Character;
 import org.hibernate.Session;
 
 import java.io.*;
@@ -93,8 +94,25 @@ public class ConnectedUser {
             case JOINQUEUE -> {
                 Start.getQueue().joinQueue(this);
             }
+            case SELCHAR -> {
+                c = senderObject.getCharacter();
+            }
             default -> {
                 return;
+            }
+        }
+    }
+    private Character c;
+    public Character getCIfSetOrWait() {
+
+        while (true) {
+            if(c != null) {
+                return c;
+            }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
