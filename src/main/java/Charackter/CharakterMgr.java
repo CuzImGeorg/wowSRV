@@ -36,5 +36,7 @@ public class CharakterMgr {
 
     }
 
-
+    public ArrayList<Character> getCharacters() {
+        return characters;
+    }
 }

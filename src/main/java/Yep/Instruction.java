@@ -8,6 +8,6 @@ public enum Instruction {
         JOINQUEUE,
         SELCHAR,
         GETCHARS,
-
+        EXAB,
 
 }

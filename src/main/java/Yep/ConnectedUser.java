@@ -1,5 +1,6 @@
 package Yep;
 
+import Charackter.Abillity;
 import Charackter.Character;
 import org.hibernate.Session;
 
@@ -95,7 +96,24 @@ public class ConnectedUser {
                 Start.getQueue().joinQueue(this);
             }
             case SELCHAR -> {
-                c = senderObject.getCharacter();
+                Character _tmp = new Character();
+                Character character = Start.getCharakterMgr().getCharacters().get(senderObject.getC());
+                c.setId(character.getId());
+                c.setHp(character.getMaxHp());
+                c.setMaxHp(character.getMaxHp());
+                c.setAd(character.getAd());
+                c.setAp(character.getAp());
+                c.setShield(0);
+                c.setCdr(0);
+                c.setName(character.getName());
+                c.setKlasse(character.getKlasse());
+
+                c = _tmp;
+            }
+            case EXAB -> {
+                if(abillity != null) {
+                    abillity.execAbility(senderObject);
+                }
             }
             default -> {
                 return;
@@ -115,6 +133,12 @@ public class ConnectedUser {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private Abillity abillity;
+
+    public void setAbillity(Abillity abillity) {
+        this.abillity = abillity;
     }
 
     public User getUser() {

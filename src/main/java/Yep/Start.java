@@ -1,5 +1,6 @@
 package Yep;
 
+import Charackter.CharakterMgr;
 import Lobby.LobbyMgr;
 import Queue.Queue;
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ public class Start {
     private static UserManager userManager;
     private static LobbyMgr lobbyMgr;
     private static Queue queue;
+    private static CharakterMgr charakterMgr;
 
     public static void main(String[] args) {
         connectedUserMgr = new ConnectedUserMgr();
@@ -19,6 +21,7 @@ public class Start {
         queue = new Queue();
         hibernateUtil = new HibernateUtil();
         Session s = hibernateUtil.getSessionFactory().getCurrentSession();
+        charakterMgr = new CharakterMgr();
         userManager = new UserManager();
         sockathandler = new Sockathandler();
         sockathandler.start();
@@ -46,5 +49,9 @@ public class Start {
 
     public static Queue getQueue() {
         return queue;
+    }
+
+    public static CharakterMgr getCharakterMgr() {
+        return charakterMgr;
     }
 }

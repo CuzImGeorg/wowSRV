@@ -4,13 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public class Character implements Serializable {
-    private int id, maxHp,shield, ad, cdr, hp;
+    private int id, maxHp,shield, ad, cdr, hp, ap;
     private String klasse, name;
     private BufferedImage img;
 
-    private Abillity[] abillities = new Abillity[5];
-
-    public Character(int id, int maxHp, int shield, int ad, int cdr, String klasse, String name, Abillity[] abillities, BufferedImage img) {
+    public Character(int id, int maxHp, int shield, int ad, int cdr, String klasse, String name, BufferedImage img) {
         this.id = id;
         this.maxHp = maxHp;
         this.shield = shield;
@@ -18,7 +16,7 @@ public class Character implements Serializable {
         this.cdr = cdr;
         this.klasse = klasse;
         this.name = name;
-        this.abillities = abillities;
+
         this.img = img;
 
     }
@@ -83,14 +81,6 @@ public class Character implements Serializable {
         this.hp = hp;
     }
 
-    public Abillity[] getAbillities() {
-        return abillities;
-    }
-
-    public void setAbillities(Abillity[] abillities) {
-        this.abillities = abillities;
-    }
-
     public int getId() {
         return id;
     }
@@ -105,5 +95,13 @@ public class Character implements Serializable {
 
     public void setImg(BufferedImage img) {
         this.img = img;
+    }
+
+    public int getAp() {
+        return ap;
+    }
+
+    public void setAp(int ap) {
+        this.ap = ap;
     }
 }

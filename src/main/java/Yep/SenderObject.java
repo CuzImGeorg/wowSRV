@@ -12,6 +12,8 @@ public class SenderObject  implements Serializable {
     private int code;
     private ArrayList<QueueUser> queueUsers;
     private Character character;
+    private int c;
+    private int ab;
 
 
     public Instruction getInstruction() {
@@ -54,5 +56,21 @@ public class SenderObject  implements Serializable {
 
     public void setCharacter(Character character) {
         this.character = character;
+    }
+
+    public int getC() {
+        return c;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
+
+    public int getAb() {
+        return ab;
+    }
+
+    public void setAb(int ab) {
+        this.ab = ab;
     }
 }

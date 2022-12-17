@@ -1,62 +1,121 @@
 package Charackter;
 
+import Lobby.LobbyUser;
 import Yep.SenderObject;
+import org.hibernate.LobHelper;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
+import javax.persistence.Lob;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Abillity implements Serializable {
 
+    private ArrayList<LobbyUser> users;
 
-    public void execAbility(SenderObject so ,Character c, int ab) {
-        switch (c.getId()) {
+    public Abillity(ArrayList<LobbyUser> users) {
+        this.users = users;
+    }
+
+    public void execAbility(SenderObject so) {
+        int ab = so.getAb();
+        switch (so.getCharacter().getId()) {
             case 1 -> {
                 switch (ab) {
                     case 0 -> {
-                        so.getCharacter().setHp(so.getCharacter().getHp() + (int) ((so.getCharacter().getMaxHp() -so.getCharacter().getHp())*0.02));
+                        for(LobbyUser u : users) {
+                            if(u.getUser().getUser().getId() == so.getUser().getId()) {
+                                u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
+                                break;
+                            }
+                        }
                     }
                     case  1 -> {
-                        int schield = (int) (so.getCharacter().getHp() * 0.1);
-                        so.getCharacter().setShield(schield);
-                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-                        ses.schedule(()-> {
-                            if(so.getCharacter().getShield() > 0) {
-                                if(so.getCharacter().getShield() - schield < 0) {
-                                    so.getCharacter().setShield(0);
-                                }else {
-                                    so.getCharacter().setShield(so.getCharacter().getShield()-schield);
-                                }
+                        int shield = (int) (so.getCharacter().getHp() * 0.1);
+                        for(LobbyUser  u : users) {
+                            if(u.getUser().getUser().getId() == so.getUser().getId()) {
+                                Character c = u.getCharackter();
+                                c.setShield(shield);
+                                ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                                ses.schedule(()-> {
+                                    if(c.getShield() > 0) {
+                                        if(c.getShield() - shield < 0) {
+                                            c.setShield(0);
+                                        }else {
+                                            c.setShield(c.getShield()-shield);
+                                        }
 
+                                    }
+                                },2500, TimeUnit.MILLISECONDS);
+                                break;
                             }
-                        },2500, TimeUnit.MILLISECONDS);
-
+                        }
                     }
                     case  2 -> {
-
+                        AtomicInteger count = new AtomicInteger();
+                        AtomicInteger ap = new AtomicInteger();
+                        for (LobbyUser lu : users) {
+                            if(lu.getUser().getUser().getId() == so.getUser().getId()) {
+                                ap.set(lu.getCharackter().getAp());
+                                break;
+                            }
+                        }
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.scheduleAtFixedRate(()-> {
+                            if( count.get() == 5 ) ses.shutdown();
+                            else {
+                                makeDMG(so,false, 20 + (ap.get() * 5));
+                            }
+                            count.getAndIncrement();
+                        },0,1,TimeUnit.SECONDS);
                     }
                     case  3 -> {
-
+                        AtomicInteger ad = new AtomicInteger();
+                        for (LobbyUser lu : users) {
+                            if(lu.getUser().getUser().getId() == so.getUser().getId()) {
+                                ad.set(lu.getCharackter().getAp());
+                                break;
+                            }
+                        }
+                        makeDMG(so, false, 120 + ad.get());
                     }
                     case  4-> {
+                        int ad, ap;
+                        LobbyUser lu = getUser(so);
+                        ad = (int) (lu.getCharackter().getHp() * 0.05);
+                        ap = (int) (lu.getCharackter().getHp() * 0.01) / 2 ;
+
+                        lu.getCharackter().setAp(lu.getCharackter().getAp() + ap);
+                        lu.getCharackter().setAd(lu.getCharackter().getAd() + ad);
+
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.schedule(()-> {
+                            lu.getCharackter().setAp(lu.getCharackter().getAp() - ap);
+                            lu.getCharackter().setAd(lu.getCharackter().getAd() - ad);
+                        }, 10, TimeUnit.SECONDS);
+
 
                     }
-
                 }
             }
             case 2 -> {
                 switch (ab) {
                     case 0 -> {
-
+                        LobbyUser lu = getUser(so);
+                        lu.getCharackter().setAp(lu.getCharackter().getAp() + 1);
+                        lu.getCharackter().setAd(lu.getCharackter().getAd() + 5);
                     }
                     case  1 -> {
-
+                        LobbyUser lu = getUser(so);
+                        makeDMG(so, true, 40 + lu.getCharackter().getAp());
                     }
                     case  2 -> {
-
+                        LobbyUser lu = getUser(so);
+                        makeDMG(so, false, 120 + lu.getCharackter().getAd());
+                        lu.getCharackter().setHp( lu.getCharackter().getHp() + (int) ((120 + lu.getCharackter().getAd()) * 0.1));
                     }
                     case  3 -> {
 
@@ -217,8 +276,99 @@ public class Abillity implements Serializable {
 
     }
 
+    public LobbyUser getUser(SenderObject so) {
+        for (LobbyUser lu : users) {
+            if(lu.getUser().getUser().getId() == so.getUser().getId()) {
+                return lu;
+            }
+        }
+        return null;
+    }
 
+    public void makeDMG(SenderObject so, boolean aoe, int dmg) {
+        int team = 0;
+        if(aoe) {
+            for(LobbyUser u : users) {
+                if(u.getTeam() != team) {
+                    if (u.getCharackter().getHp() > 0) {
+                        u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                    }
+                }
+            }
 
+        }else {
 
+            for (LobbyUser u : users) {
+                if(u.getUser().getUser().getId() == so.getUser().getId()) {
+                    team = u.getTeam();
+                }
+            }
 
+            for(LobbyUser u : users) {
+                if(u.getTeam() == team) {
+                } else {
+                    if(u.getCharackter().getKlasse().equalsIgnoreCase("tank")) {
+                        if(u.getCharackter().getHp() > 0) {
+                            if(u.getCharackter().getShield() > 0) {
+                                if(u.getCharackter().getShield() - dmg < 0) {
+                                    int _tmp = dmg - u.getCharackter().getShield();
+                                    u.getCharackter().setHp(u.getCharackter().getHp() - _tmp );
+                                    u.getCharackter().setShield(0);
+                                }else {
+                                    u.getCharackter().setShield(u.getCharackter().getShield() - dmg);
+                                }
+                            }else {
+                                u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                            }
+
+                        }else {
+                            for (LobbyUser lu : users) {
+                                if (lu.getTeam() == team) {
+
+                                }else {
+                                    if(lu.getCharackter().getKlasse().equalsIgnoreCase("dps")) {
+                                        if(lu.getCharackter().getHp() > 0) {
+                                            if(u.getCharackter().getShield() > 0) {
+                                                if(u.getCharackter().getShield() - dmg < 0) {
+                                                    int _tmp = dmg - u.getCharackter().getShield();
+                                                    u.getCharackter().setHp(u.getCharackter().getHp() - _tmp );
+                                                    u.getCharackter().setShield(0);
+                                                }else {
+                                                    u.getCharackter().setShield(u.getCharackter().getShield() - dmg);
+                                                }
+                                            }else {
+                                                u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                            }
+                                        }else {
+                                            for (LobbyUser lou : users) {
+                                                if (lou.getTeam() == team) {
+
+                                                }else {
+                                                    if(lou.getCharackter().getKlasse().equalsIgnoreCase("sup")) {
+                                                        if(lou.getCharackter().getHp() > 0) {
+                                                            if(u.getCharackter().getShield() > 0) {
+                                                                if(u.getCharackter().getShield() - dmg < 0) {
+                                                                    int _tmp = dmg - u.getCharackter().getShield();
+                                                                    u.getCharackter().setHp(u.getCharackter().getHp() - _tmp );
+                                                                    u.getCharackter().setShield(0);
+                                                                }else {
+                                                                    u.getCharackter().setShield(u.getCharackter().getShield() - dmg);
+                                                                }
+                                                            }else {
+                                                                u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
