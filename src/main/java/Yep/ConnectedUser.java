@@ -2,6 +2,8 @@ package Yep;
 
 import Charackter.Abillity;
 import Charackter.Character;
+import Played.Played;
+import Played.PlayedMrg;
 import org.hibernate.Session;
 
 import java.io.*;
@@ -61,6 +63,16 @@ public class ConnectedUser {
                session.beginTransaction();
                session.save(senderObject.getUser());
                session.getTransaction().commit();
+               User u = Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword());
+               session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+               session.beginTransaction();
+               for(Played p : PlayedMrg.getDefautValues(u.getId())) {
+                   session.save(p);
+               }
+               session.getTransaction().commit();
+
+
+
 
             }
             case DELETEUSER -> {
