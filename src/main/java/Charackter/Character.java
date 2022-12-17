@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class Character implements Serializable {
     private int id, maxHp,shield, ad, cdr, hp, ap;
-    private String klasse, name;
+    private String klasse, name, description;
     private BufferedImage img;
 
     public Character(int id, int maxHp, int shield, int ad, int cdr, String klasse, String name, BufferedImage img) {
@@ -103,5 +103,13 @@ public class Character implements Serializable {
 
     public void setAp(int ap) {
         this.ap = ap;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

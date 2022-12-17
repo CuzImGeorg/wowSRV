@@ -4,9 +4,13 @@
 
 <hibernate-mapping>
     <class name="Yep.User" table="REG_USER" >
-        <id name="username" type="string">
-            <column name="username" />
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment"/>
         </id>
+        <property name="username" type="string">
+            <column name="username" />
+        </property>
         <property name="password" type="string">
             <column name="password" />
         </property>

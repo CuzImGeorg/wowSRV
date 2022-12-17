@@ -3,31 +3,30 @@
         "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="" table="character" >
-        <id name="username" type="string">
-            <column name="username" />
+    <class name="Charackter.Character" table="character" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment"/>
         </id>
-        <property name="password" type="string">
-            <column name="password" />
-        </property>
-        <property name="level" type="int">
-            <column name="level" />
-        </property>
-        <property name="xp" type="int">
-            <column name="xp" />
+        <property name="klasse" type="string">
+            <column name="klasse" />
         </property>
         <property name="description" type="string">
             <column name="description" />
         </property>
-        <property name="status" type="string">
-            <column name="status" />
+        <property name="name" type="string">
+            <column name="name" />
         </property>
-        <property name="lastlogon" type="string">
-            <column name="lastlogon" />
+        <property name="maxHp" type="int">
+            <column name="maxhp" />
         </property>
-        <property name="createdate" type="string">
-            <column name="createdate" />
-        </property>
-    </class>
 
-</hibernate-mapping>
+        <property name="ad" type="int">
+            <column name="ad" />
+        </property>
+        <property name="ap" type="int">
+            <column name="ap" />
+        </property>
+        </class>
+  </hibernate-mapping>
+

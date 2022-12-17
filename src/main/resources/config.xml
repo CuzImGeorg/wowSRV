@@ -24,5 +24,6 @@
                 <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
 		<!-- mapping file, we can use Bean annotations too -->
 		<mapping resource="user.hbm.xml" />
+		<mapping resource="character.xml"/>
 	</session-factory>
 </hibernate-configuration>
