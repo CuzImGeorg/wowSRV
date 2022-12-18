@@ -27,6 +27,12 @@
         <property name="ap" type="int">
             <column name="ap" />
         </property>
+        <set name="abilitys" table="ability" fetch="select"  lazy="false">
+            <key>
+                <column name="charid"/>
+            </key>
+            <one-to-many class="Charackter.Ability"  />
+        </set>
         </class>
   </hibernate-mapping>
 

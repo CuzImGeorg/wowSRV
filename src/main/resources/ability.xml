@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="Charackter.Ability" table="ability" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" />
+        </property>
+        <many-to-one name="charid" class="Charackter.Character"  lazy="false">
+            <column name="charid"  not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
+

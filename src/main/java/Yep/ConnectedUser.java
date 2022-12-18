@@ -1,6 +1,6 @@
 package Yep;
 
-import Charackter.Abillity;
+import Charackter.AbillityExec;
 import Charackter.Character;
 import Played.Played;
 import Played.PlayedMrg;
@@ -107,6 +107,15 @@ public class ConnectedUser {
             case JOINQUEUE -> {
                 Start.getQueue().joinQueue(this);
             }
+            case GETALLCHARS -> {
+                SenderObject s = new SenderObject(Instruction.REQUESTUSER);
+                s.setCharacters(Start.getCharakterMgr().getCharacters());
+                try {
+                    objectOutputStream.writeObject(s);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             case SELCHAR -> {
                 Character _tmp = new Character();
                 Character character = Start.getCharakterMgr().getCharacters().get(senderObject.getC());
@@ -123,8 +132,8 @@ public class ConnectedUser {
                 c = _tmp;
             }
             case EXAB -> {
-                if(abillity != null) {
-                    abillity.execAbility(senderObject);
+                if(abillityExec != null) {
+                    abillityExec.execAbility(senderObject);
                 }
             }
             default -> {
@@ -147,10 +156,10 @@ public class ConnectedUser {
         }
     }
 
-    private Abillity abillity;
+    private AbillityExec abillityExec;
 
-    public void setAbillity(Abillity abillity) {
-        this.abillity = abillity;
+    public void setAbillity(AbillityExec abillityExec) {
+        this.abillityExec = abillityExec;
     }
 
     public User getUser() {

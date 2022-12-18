@@ -1,1 +1,0 @@
-INSERT INTO character (maxHp, ad, ap, klasse, name) VALUES (2000, 2, 80, 'TANK', 'KV-1S' );

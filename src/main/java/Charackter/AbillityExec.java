@@ -2,9 +2,7 @@ package Charackter;
 
 import Lobby.LobbyUser;
 import Yep.SenderObject;
-import org.hibernate.LobHelper;
 
-import javax.persistence.Lob;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -12,11 +10,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Abillity implements Serializable {
+public class AbillityExec implements Serializable {
 
     private ArrayList<LobbyUser> users;
 
-    public Abillity(ArrayList<LobbyUser> users) {
+    public AbillityExec(ArrayList<LobbyUser> users) {
         this.users = users;
     }
 

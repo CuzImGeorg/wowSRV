@@ -6,6 +6,7 @@ public enum Instruction {
         REQUESTUSER,
         UPDATEUSER,
         JOINQUEUE,
+        GETALLCHARS,
         SELCHAR,
         GETCHARS,
         EXAB,

@@ -1,18 +1,17 @@
 package Game;
 
-import Charackter.Abillity;
+import Charackter.AbillityExec;
 import Lobby.LobbyUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Game {
 
-    private Abillity abillityecex;
+    private AbillityExec abillityecex;
     private ArrayList<LobbyUser> users;
 
     public Game () {
-        abillityecex = new Abillity(users);
+        abillityecex = new AbillityExec(users);
     }
 
 

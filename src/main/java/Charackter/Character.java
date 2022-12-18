@@ -2,11 +2,13 @@ package Charackter;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.Set;
 
 public class Character implements Serializable {
     private int id, maxHp,shield, ad, cdr, hp, ap;
     private String klasse, name, description;
     private BufferedImage img;
+    private Set<Ability> abilitys;
 
     public Character(int id, int maxHp, int shield, int ad, int cdr, String klasse, String name, BufferedImage img) {
         this.id = id;
@@ -111,5 +113,13 @@ public class Character implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Ability> getAbilitys() {
+        return abilitys;
+    }
+
+    public void setAbilitys(Set<Ability> abilitys) {
+        this.abilitys = abilitys;
     }
 }

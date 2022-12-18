@@ -1,5 +1,7 @@
 package Yep;
 
+import Charackter.Ability;
+import Charackter.Character;
 import Charackter.CharakterMgr;
 import Lobby.LobbyMgr;
 import Queue.Queue;
@@ -25,6 +27,12 @@ public class Start {
         userManager = new UserManager();
         sockathandler = new Sockathandler();
         sockathandler.start();
+//        for (Character c : charakterMgr.getCharacters()) {
+//            System.out.println(c.getName() + " " +  c.getId());
+//            for (Ability a : c.getAbilitys()) {
+//                System.out.println(a.getName() +" ->  " + a.getDescription());
+//            }
+//        }
     }
 
     public static ConnectedUserMgr getConnectedUserMgr() {

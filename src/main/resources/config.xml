@@ -25,5 +25,6 @@
 		<!-- mapping file, we can use Bean annotations too -->
 		<mapping resource="user.hbm.xml" />
 		<mapping resource="character.xml"/>
+		<mapping resource="ability.xml"/>
 	</session-factory>
 </hibernate-configuration>
