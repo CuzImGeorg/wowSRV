@@ -24,43 +24,38 @@ public class AbillityExec implements Serializable {
             case 1 -> {
                 switch (ab) {
                     case 0 -> {
-                        for(LobbyUser u : users) {
-                            if(u.getUser().getUser().getId() == so.getUser().getId()) {
-                                u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
-                                break;
-                            }
-                        }
+                        LobbyUser u = getUser(so);
+                        u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
+
+//                        for(LobbyUser u : users) {
+//                            if(u.getUser().getUser().getId() == so.getUser().getId()) {
+//                                u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
+//                                break;
+//                            }
+//                        }
                     }
                     case  1 -> {
                         int shield = (int) (so.getCharacter().getHp() * 0.1);
-                        for(LobbyUser  u : users) {
-                            if(u.getUser().getUser().getId() == so.getUser().getId()) {
-                                Character c = u.getCharackter();
-                                c.setShield(shield);
-                                ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-                                ses.schedule(()-> {
-                                    if(c.getShield() > 0) {
-                                        if(c.getShield() - shield < 0) {
-                                            c.setShield(0);
-                                        }else {
-                                            c.setShield(c.getShield()-shield);
-                                        }
+                        LobbyUser  u = getUser(so);
+                        Character c = u.getCharackter();
+                        c.setShield(shield);
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.schedule(()-> {
+                            if(c.getShield() > 0) {
+                                if(c.getShield() - shield < 0) {
+                                    c.setShield(0);
+                                }else {
+                                    c.setShield(c.getShield()-shield);
+                                }
 
-                                    }
-                                },2500, TimeUnit.MILLISECONDS);
-                                break;
                             }
-                        }
+                        },2500, TimeUnit.MILLISECONDS);
                     }
                     case  2 -> {
                         AtomicInteger count = new AtomicInteger();
                         AtomicInteger ap = new AtomicInteger();
-                        for (LobbyUser lu : users) {
-                            if(lu.getUser().getUser().getId() == so.getUser().getId()) {
-                                ap.set(lu.getCharackter().getAp());
-                                break;
-                            }
-                        }
+                        LobbyUser u = getUser(so);
+                        ap.set(u.getCharackter().getAp());
                         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
                         ses.scheduleAtFixedRate(()-> {
                             if( count.get() == 5 ) ses.shutdown();
@@ -71,14 +66,9 @@ public class AbillityExec implements Serializable {
                         },0,1,TimeUnit.SECONDS);
                     }
                     case  3 -> {
-                        AtomicInteger ad = new AtomicInteger();
-                        for (LobbyUser lu : users) {
-                            if(lu.getUser().getUser().getId() == so.getUser().getId()) {
-                                ad.set(lu.getCharackter().getAp());
-                                break;
-                            }
-                        }
-                        makeDMG(so, false, 120 + ad.get());
+                        LobbyUser u = getUser(so);
+                        int ad = u.getCharackter().getAp();
+                        makeDMG(so, false, 120 + ad);
                     }
                     case  4-> {
                         int ad, ap;
@@ -289,8 +279,19 @@ public class AbillityExec implements Serializable {
         if(aoe) {
             for(LobbyUser u : users) {
                 if(u.getTeam() != team) {
-                    if (u.getCharackter().getHp() > 0) {
-                        u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                    if(u.getCharackter().getHp() > 0) {
+                        if(u.getCharackter().getShield() > 0) {
+                            if(u.getCharackter().getShield() - dmg < 0) {
+                                int _tmp = dmg - u.getCharackter().getShield();
+                                u.getCharackter().setHp(u.getCharackter().getHp() - _tmp );
+                                u.getCharackter().setShield(0);
+                            }else {
+                                u.getCharackter().setShield(u.getCharackter().getShield() - dmg);
+                            }
+                        }else {
+                            u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                        }
+
                     }
                 }
             }
@@ -382,6 +383,20 @@ public class AbillityExec implements Serializable {
                         }else {
                             u.getCharackter().setHp(u.getCharackter().getHp() + heath);
                         }
+                    }
+
+                }
+            }
+        }
+    }
+
+    public void addschield(SenderObject so, boolean all, int shied) {
+        if(all) {
+            LobbyUser u = getUser(so);
+            for (LobbyUser lu : users) {
+                if(lu.getTeam() == u.getTeam()) {
+                    if(u.getCharackter().getHp() > 0) {
+                       //TODO
                     }
 
                 }

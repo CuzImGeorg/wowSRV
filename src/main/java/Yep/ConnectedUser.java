@@ -133,6 +133,7 @@ public class ConnectedUser {
             }
             case EXAB -> {
                 if(abillityExec != null) {
+                    senderObject.setUser(user);
                     abillityExec.execAbility(senderObject);
                 }
             }
