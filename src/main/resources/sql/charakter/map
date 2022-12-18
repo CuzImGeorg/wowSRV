@@ -12,44 +12,44 @@ Charater 2 : TANK T-90
               C:
               D:
 Character 3 : TANK
-              P:
+              P: GAIN Every 10 sec 100 + 50*ap schield
               A:
               B:
               C:
               D:
-Character 4 : DPS
+Character 4 : DPS Kalaschnikow desc -> Sowjetischer Damage Dealer; Entwikelt 1946 einer der meistbenutzer Damage Dealer
+              P: 10% chnage that a ability ist cast 2x excluding ult
+              A: DEAL 100% ad damage cd 2.5
+              B: DEAL 110% ad damage + 25% krit for 2x dmg cd 15
+              C:
+              D: Shoot 8 time ability headshot      cd 80
+Character 5 : DPS Ar-15 des -> ArmaLite 15, developed in US, good for armor penetration
               P:
               A:  DEAL 100% ad damage
-              B:
+              B:  Deal 70% damage and ignores schied
               C:
-              D:
-Character 5 : DPS
-              P:
-              A:  DEAL 100% ad damage
-              B:
-              C:
-              D:
+              D:  Gain 100% ad for 10 sec cd 90
 Character 6 : DPS
               P:
               A:  DEAL 100% ad damage
               B:
               C:
               D:
-Character 7 : SUP
-              P:
-              A:   HEAL 100 + 50 * ap
-              B:
+Character 7 : SUP  Mercy
+              P:   Gain every 5 min 1 ap
+              A:   HEAL 100 + 50 * ap        cd 15
+              B:   Give allies 10+10*ap ad
               C:
               D:
 Character 8 : SUP
               P:
-              A:
-              B:
-              C:
+              A:   HEAL 100 + 50 * ap        cd 15
+              B:   Shield your allies for 150 + 40 * ap cd 10
+              C:   Remove all shields from enemys  cd 25
               D:
 Character 9 : SUP
             P:
-            A:
+            A:    HEAL 100 + 50 * ap        cd 15
             B:
             C:
             D:
