@@ -211,7 +211,8 @@ public class AbillityExec implements Serializable {
 
                     }
                     case  1 -> {
-
+                        int ap = getUser(so).getCharackter().getAp();
+                        heal(so, true, 100 + 5*ap );
                     }
                     case  2 -> {
 
@@ -365,6 +366,24 @@ public class AbillityExec implements Serializable {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    public void heal(SenderObject so, boolean all, int heath) {
+        if(all) {
+            LobbyUser u = getUser(so);
+            for (LobbyUser lu : users) {
+                if(lu.getTeam() == u.getTeam()) {
+                    if(u.getCharackter().getHp() > 0) {
+                        if( u.getCharackter().getHp() + heath > u.getCharackter().getMaxHp()) {
+                            u.getCharackter().setHp(u.getCharackter().getMaxHp());
+                        }else {
+                            u.getCharackter().setHp(u.getCharackter().getHp() + heath);
+                        }
+                    }
+
                 }
             }
         }
