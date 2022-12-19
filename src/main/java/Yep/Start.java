@@ -1,7 +1,5 @@
 package Yep;
 
-import Charackter.Ability;
-import Charackter.Character;
 import Charackter.CharakterMgr;
 import Lobby.LobbyMgr;
 import Queue.Queue;
@@ -22,6 +20,7 @@ public class Start {
         lobbyMgr = new LobbyMgr();
         queue = new Queue();
         hibernateUtil = new HibernateUtil();
+        charakterMgr = new CharakterMgr();
         Session s = hibernateUtil.getSessionFactory().getCurrentSession();
         charakterMgr = new CharakterMgr();
         userManager = new UserManager();
@@ -62,4 +61,6 @@ public class Start {
     public static CharakterMgr getCharakterMgr() {
         return charakterMgr;
     }
+
+
 }

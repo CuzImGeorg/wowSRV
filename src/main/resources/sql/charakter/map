@@ -7,10 +7,10 @@ Character 1 : TANK nmae: KV-1S
 
 Charater 2 : TANK T-90
               P: GAIN 5 Ad and 1 ap extra every 5 min
-              A: Deal 40 + 100% ap dmg to all            cd 10
-              B: Deal 120 + ad dmg and heal for 10% dmg  cd 10
-              C:
-              D:
+              A: Deal 40 + 1* ap dmg to all            cd 10
+              B: Deal 120 + 40% ad dmg and heal for 10% dmg  cd 12
+              C: Gain 100+40*ap shield for 3 sec      cd 25
+              D: Get 20% max heath as for 10 sec and heal 10% max heath everey 5 seconds
 Character 3 : TANK
               P: GAIN Every 10 sec 100 + 50*ap schield
               A:
@@ -21,16 +21,16 @@ Character 4 : DPS Kalaschnikow desc -> Sowjetischer Damage Dealer; Entwikelt 194
               P: 10% chnage that a ability ist cast 2x excluding ult
               A: DEAL 100% ad damage cd 2.5
               B: DEAL 110% ad damage + 25% krit for 2x dmg cd 15
-              C:
-              D: Shoot 8 time ability headshot      cd 80
+              C: gain 30% ad for 1.5 secons cd      25
+              D: Shoot 8 time  basic ability    cd 80
 Character 5 : DPS Ar-15 des -> ArmaLite 15, developed in US, good for armor penetration
-              P:
+              P:  30% to  deal a extra of 100 + 50% ad dmg on ability cast
               A:  DEAL 100% ad damage
-              B:  Deal 70% damage and ignores schied
+              B:  Deal 70% ad and ignores schied
               C:
               D:  Gain 100% ad for 10 sec cd 90
 Character 6 : DPS
-              P:
+              P:  Every time u hit u have a change of 25 % to get + 2 ad
               A:  DEAL 100% ad damage
               B:
               C:
@@ -41,15 +41,15 @@ Character 7 : SUP  Mercy
               B:   Give allies 10+10*ap ad
               C:
               D:
-Character 8 : SUP
+Character 8 : SUP name HEILER; Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD
               P:
               A:   HEAL 100 + 50 * ap        cd 15
               B:   Shield your allies for 150 + 40 * ap cd 10
               C:   Remove all shields from enemys  cd 25
-              D:
+              D:   HEAL all your allies for 300 + 10 ap cd 80
 Character 9 : SUP
-            P:
-            A:    HEAL 100 + 50 * ap        cd 15
-            B:
-            C:
-            D:
+              P:
+              A:    HEAL 100 + 50 * ap        cd 15
+              B:
+              C:
+              D:
