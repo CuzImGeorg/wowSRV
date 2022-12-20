@@ -4,19 +4,18 @@ Character 1 : TANK nmae: KV-1S
               B {Ignite} : DEAL 20 + 500% ap dmg per second for 5 seconds cd 10
               C {Hurt} : DEAL 120 + ad damage                           cd 10
               D {Pump Up} : Get 0.5% current Helth ap and ad for 10 sec     cd 60
-
 Charater 2 : TANK T-90
               P: GAIN 5 Ad and 1 ap extra every 5 min
               A: Deal 40 + 1* ap dmg to all            cd 10
               B: Deal 120 + 40% ad dmg and heal for 10% dmg  cd 12
               C: Gain 100+40*ap shield for 3 sec      cd 25
-              D: Get 20% max heath as for 10 sec and heal 10% max heath everey 5 seconds
-Character 3 : TANK
-              P: GAIN Every 10 sec 100 + 50*ap schield
-              A:
-              B:
-              C:
-              D:
+              D: Get 20% max heath as for 10 sec and heal 10% max heath everey 5 seconds cd 80
+Character 3 : TANK Ariete italiensicher KapmfTank aktuell gibt es 140 in Italien
+              P: GAIN Every 10 sec 100 + 20*ap schield
+              A: Deal 40 + 1 % max heath  dmg to all            cd 10
+              B: Deal 120 + 40% ad dmg
+              C: Heal urself for 50 + 2ß*ap dmg
+              D: Gain 1200 + 100 * ap shield for 10 sec
 Character 4 : DPS Kalaschnikow desc -> Sowjetischer Damage Dealer; Entwikelt 1946 einer der meistbenutzer Damage Dealer
               P: 10% chnage that a ability ist cast 2x excluding ult
               A: DEAL 100% ad damage cd 2.5
@@ -38,10 +37,11 @@ Character 6 : DPS
 Character 7 : SUP  Mercy
               P:   Gain every 5 min 1 ap
               A:   HEAL 100 + 50 * ap        cd 15
-              B:   Give allies 10+10*ap ad
+              B:   Give allies 10ad + ap/2 ad
               C:
               D:
-Character 8 : SUP name HEILER; Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD
+Character 8 : SUP name HEILER; Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD immer
+                               EINSTAZBREREIT um dich und deine STAFFEL zu BESCHÜTZEN!
               P:
               A:   HEAL 100 + 50 * ap        cd 15
               B:   Shield your allies for 150 + 40 * ap cd 10

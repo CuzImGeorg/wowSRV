@@ -5,6 +5,7 @@ import Yep.ConnectedUser;
 import Yep.SenderObject;
 import Yep.User;
 
+import javax.persistence.Lob;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,7 +28,7 @@ public class AbillityExec implements Serializable {
         int ab = so.getAb();
 
 
-        switch (so.getCharacter().getId()) {
+        switch (getUser(so).getCharackter().getId()) {
             case 1 -> {
                 switch (ab) {
                     case 0 -> {
@@ -152,16 +153,21 @@ public class AbillityExec implements Serializable {
                 }
             }
             case 3 -> {
-
                 switch (ab) {
                     case 0 -> {
-
+                        LobbyUser u = getUser(so);
+                        ScheduledExecutorService ses =  Executors.newScheduledThreadPool(1);
+                        ses.scheduleAtFixedRate(()-> {
+                            u.getCharackter().setShield(u.getCharackter().getShield()+(100+20*u.getCharackter().getAp()));
+                        },10,10, TimeUnit.SECONDS);
                     }
                     case  1 -> {
-
+                        LobbyUser u = getUser(so);
+                        makeDMG(so,true, (int) (40+u.getCharackter().getMaxHp()*0.01));
                     }
                     case  2 -> {
-
+                        LobbyUser u = getUser(so);
+                        makeDMG(so, false, (int) (120+u.getCharackter().getAd()*0.4));
                     }
                     case  3 -> {
 
