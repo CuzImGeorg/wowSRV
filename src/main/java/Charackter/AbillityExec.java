@@ -1,4 +1,4 @@
-package Charackter;
+ package Charackter;
 
 import Lobby.LobbyUser;
 import Yep.ConnectedUser;
@@ -34,7 +34,7 @@ public class AbillityExec implements Serializable {
                     case 0 -> {
                         LobbyUser u = getUser(so);
                         u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
-
+                        if(u.getCharackter().getHp() > u.getCharackter().getMaxHp()) u.getCharackter().setHp(u.getCharackter().getMaxHp());
 //                        for(LobbyUser u : users) {
 //                            if(u.getUser().getUser().getId() == so.getUser().getId()) {
 //                                u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
@@ -170,9 +170,27 @@ public class AbillityExec implements Serializable {
                         makeDMG(so, false, (int) (120+u.getCharackter().getAd()*0.4));
                     }
                     case  3 -> {
-
+                        LobbyUser u = getUser(so);
+                        int heal = 50 + 20 * u.getCharackter().getAp();
+                        if(u.getCharackter().getHp() + heal > u.getCharackter().getMaxHp()) {
+                            u.getCharackter().setHp(u.getCharackter().getMaxHp());
+                        }else {
+                            u.getCharackter().setHp(u.getCharackter().getHp() + heal);
+                        }
                     }
                     case  4-> {
+                        LobbyUser u = getUser(so);
+                        int shield = 1200 + 100*u.getCharackter().getAp();
+                        u.getCharackter().setShield(u.getCharackter().getShield() + shield);
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.schedule(()-> {
+                            if(u.getCharackter().getShield() - shield < 0) {
+                                u.getCharackter().setShield(0);
+                            }else {
+                                u.getCharackter().setShield(u.getCharackter().getShield() - shield);
+                            }
+                        },10, TimeUnit.SECONDS);
+
 
                     }
 
