@@ -1,6 +1,8 @@
 package Charackter;
 
-public class Ability {
+import java.io.Serializable;
+
+public class Ability implements Serializable {
     private int id,aid;
     private String name, description;
     private Character charid;

@@ -64,12 +64,12 @@ public class ConnectedUser {
                session.save(senderObject.getUser());
                session.getTransaction().commit();
                User u = Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword());
-               session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
-               session.beginTransaction();
-               for(Played p : PlayedMrg.getDefautValues(u.getId())) {
-                   session.save(p);
-               }
-               session.getTransaction().commit();
+//               session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+//               session.beginTransaction();
+//               for(Played p : PlayedMrg.getDefautValues(u.getId())) {
+//                   session.save(p);
+//               }
+//               session.getTransaction().commit();
 
 
 

@@ -1,5 +1,6 @@
 package Lobby;
 
+import Game.Game;
 import Yep.ConnectedUser;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 public class LobbyMgr {
 
     private ArrayList<Lobby> lobbies;
+
 
     public LobbyMgr() {
         lobbies = new ArrayList<>();
@@ -18,6 +20,7 @@ public class LobbyMgr {
             lobbyUsers.add(new LobbyUser(u));
         }
         lobbies.add(new Lobby(lobbies.size()+1, lobbyUsers));
+
     }
 
 }

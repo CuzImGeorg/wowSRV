@@ -3,6 +3,7 @@ package Yep;
 import Charackter.Character;
 import Queue.QueueUser;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ public class SenderObject  implements Serializable {
     private int c;
     private int ab;
 
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
 
     public Instruction getInstruction() {
         return instruction;

@@ -1,9 +1,11 @@
 package Lobby;
 
+import Game.Game;
 import Queue.QueueUser;
 import Yep.Instruction;
 import Yep.SenderObject;
 
+import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -33,6 +35,7 @@ public class Lobby {
 
         for ( LobbyUser u : users) {
             try {
+                System.out.println("Sendetto " + u.getUser().getUser().getUsername() );
                 u.getUser().getObjectOutputStream().writeObject(s);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -46,7 +49,9 @@ public class Lobby {
 
         while (true) {
             if(checkForSel()) {
-                //start Game
+                //TODO gamestart
+                Game g = new Game(users);
+                g.start();
 
 
                 break;

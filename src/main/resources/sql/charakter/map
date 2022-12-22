@@ -23,10 +23,10 @@ Character 4 : DPS Kalaschnikow desc -> Sowjetischer Damage Dealer; Entwikelt 194
               C: gain 30% ad for 1.5 secons cd      25
               D: Shoot 8 time  basic ability    cd 80
 Character 5 : DPS Ar-15 des -> ArmaLite 15, developed in US, good for armor penetration
-              P:  30% to  deal a extra of 100 + 50% ad dmg on ability cast
-              A:  DEAL 100% ad damage
-              B:  Deal 70% ad and ignores schied
-              C:
+              P:  30% to  deal a extra of 40 + 50% ad dmg on ability cast
+              A:  DEAL 50+ 100% ad damage
+              B:  Deal 50 + 70% ad and ignores schied
+              C:  DEAL 50+ 200% ad damage cd 8
               D:  Gain 100% ad for 10 sec cd 90
 Character 6 : DPS
               P:  Every time u hit u have a change of 25 % to get + 2 ad
@@ -38,11 +38,11 @@ Character 7 : SUP  Mercy
               P:   Gain every 5 min 1 ap
               A:   HEAL 100 + 50 * ap        cd 15
               B:   Give allies 10ad + ap/2 ad
-              C:
-              D:
+              C:   Attack enemie for 10 * ap
+              D:   Heall all allies for 500 and give them 50 ad for 8 sec cd
 Character 8 : SUP name HEILER; Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD immer
                                EINSTAZBREREIT um dich und deine STAFFEL zu BESCHÜTZEN!
-              P:
+              P:   Heal all allies for 10 every 5 sec
               A:   HEAL 100 + 50 * ap        cd 15
               B:   Shield your allies for 150 + 40 * ap cd 10
               C:   Remove all shields from enemys  cd 25

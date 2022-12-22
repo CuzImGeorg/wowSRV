@@ -254,18 +254,41 @@ public class AbillityExec implements Serializable {
             case 5 -> {
                 switch (ab) {
                     case 0 -> {
-
+                        //includes in Abilitys
                     }
                     case  1 -> {
+                        LobbyUser lu = getUser(so);
+                        makeDMG(so,false, 50 + lu.getCharackter().getAd());
+                        if(r.nextInt(3) == 0) {
+                            makeDMG(so,false,40 + lu.getCharackter().getAp() * 10);
 
+                        }
                     }
                     case  2 -> {
+                        LobbyUser lu = getUser(so);
+                        makeDMGIgnoreSchield(so, false, 50 + (int) (lu.getCharackter().getAp() * 0.75));
+                        if(r.nextInt(3) == 0) {
+                            makeDMG(so,false,40 + lu.getCharackter().getAp() * 10);
 
+                        }
                     }
                     case  3 -> {
+                        LobbyUser lu = getUser(so);
+                        makeDMG(so,false, 50 + lu.getCharackter().getAd() * 2);
 
+                        if(r.nextInt(3) == 0) {
+                            makeDMG(so,false,40 + lu.getCharackter().getAp() * 10);
+
+                        }
                     }
                     case  4-> {
+                        LobbyUser lu = getUser(so);
+                        int ad = lu.getCharackter().getAd();
+                        lu.getCharackter().setAd(lu.getCharackter().getAd() + ad);
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.schedule(()-> {
+                            lu.getCharackter().setAd(lu.getCharackter().getAd() - ad);
+                        }, 10, TimeUnit.SECONDS);
 
                     }
 

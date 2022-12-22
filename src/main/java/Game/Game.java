@@ -10,7 +10,8 @@ public class Game {
     private AbillityExec abillityecex;
     private ArrayList<LobbyUser> users;
 
-    public Game () {
+    public Game ( ArrayList<LobbyUser> users) {
+        this.users = users;
         abillityecex = new AbillityExec(users);
     }
 

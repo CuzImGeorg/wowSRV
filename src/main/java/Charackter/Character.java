@@ -10,19 +10,6 @@ public class Character implements Serializable {
     private BufferedImage img;
     private Set<Ability> abilitys;
 
-    public Character(int id, int maxHp, int shield, int ad, int cdr, String klasse, String name, BufferedImage img) {
-        this.id = id;
-        this.maxHp = maxHp;
-        this.shield = shield;
-        this.ad = ad;
-        this.cdr = cdr;
-        this.klasse = klasse;
-        this.name = name;
-
-        this.img = img;
-
-    }
-
     public Character() {
 
     }

@@ -16,13 +16,12 @@ INSERT INTO ability (name, aid, description, charid ) VALUES  ('Block' , 3, ' Ga
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Pump Up' , 4, ' Get 20% max heath as for 10 sec and heal 10% max heath everey 5 seconds cd 80', 2);
 
 -- Char 3
---TODO
 INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (4200, 4, 80, 'TANK', 'Ariete', 'Italienischer KampfTank, aktuell gibt es 140 der Art in Italien' );
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Re-Schield' , 0, 'Regenerates 2% missing heath every second', 3);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Absorbing' , 1, 'GAIN 10% current helth shield cd 30 for 2.5 sec', 3);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Ignite' , 2, 'DEAL 20 + 500% ap dmg per second for 5 seconds cd 10', 3);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Hurt' , 3, ' DEAL 120 + ad damage cd 10', 3);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Pump Up' , 4, 'Get 0.5% current Helth ap and ad for 10 sec cd 60', 3);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Absorbing' , 1, 'Deal 40 + 1 % max heath  dmg to all cd 10', 3);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Ignite' , 2, 'Deal 120 + 40% ad dmg', 3);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Hurt' , 3, 'Heal urself for 50 + 2ß*ap dmg', 3);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Pump Up' , 4, 'Gain 1200 + 100 * ap shield for 10 sec', 3);
 
 --Char 4
 INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (600, 0, 80, 'DPS', 'Kalaschnikow', 'Sowjetischer Damage Dealer; Entwikelt 1946 einer der meistbenutzer Damage Dealer' );
@@ -31,3 +30,36 @@ INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'DE
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Headshot' , 2, 'DEAL 110% ad damage + 25% krit for 2x dmg cd 15', 4);
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Rage-mode' , 3, ' Gain 40% ad for 1.5 seconds cd 25', 4);
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Spray and Pray' , 4, 'Shoot 8 time ability headshot  cd 80', 4);
+
+--Char 5
+INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (500, 0, 90, 'DPS', 'Ar-15', 'ArmaLite 15, developed in US, good for armor penetration' );
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Echo' , 0, '30% to  deal a extra of 40 + 50% ad dmg on ability cast', 5);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'DEAL 50+ 100% ad damage', 5);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Penetrate' , 2, 'Deal 50 + 70% ad and ignores schied', 5);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Double attack' , 3, 'DEAL 50+ 200% ad damage cd 8', 5);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'Gain 100% ad for 10 sec cd 90', 5);
+
+--Char 6
+//TODO
+INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (600, 0, 80, 'DPS', 'Ar-15', 'ArmaLite 15, developed in US, good for armor penetration' );
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Echo' , 0, '30% to  deal a extra of 40 + 50% ad dmg on ability cast', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'DEAL 50+ 100% ad damage', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Penetrate' , 2, 'Deal 50 + 70% ad and ignores schied', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Double attack' , 3, 'DEAL 50+ 200% ad damage cd 8', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'Gain 100% ad for 10 sec cd 90', 6);
+
+--Char 7
+INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (400, 3, 20, 'SUP', 'Mercy', 'hat keinen Frieden gegen Gegner' );
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Scale' , 0, 'Gain every 5 min 1 ap', 7);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Heal' , 1, 'HEAL 100 + 50 * ap cd 15', 7);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Schield' , 2, 'Give allies 10ad + ap/2 ad', 7);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('attack' , 3, 'Attack enemie for 10 * ap', 7);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'Heall all allies for 500 and give them 50 ad for 8 sec cd', 7);
+
+--Char 8
+INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (400, 3, 20, 'SUP', 'HEILER', 'Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD immer  EINSTAZBREREIT um dich und deine STAFFEL zu BESCHÜTZEN!' );
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Scale' , 0, 'Gain every 5 min 1 ap', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'HEAL 100 + 50 * ap cd 15', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Penetrate' , 2, 'Give allies 10ad + ap/2 ad', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Double attack' , 3, 'DEAL 50+ 200% ad damage cd 8', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'Heall all allies for 500 and give them 50 ad for 8 sec cd', 8);
