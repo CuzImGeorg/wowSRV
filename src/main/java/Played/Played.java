@@ -1,20 +1,25 @@
 package Played;
 
-public class Played {
-    private int id, userid, charid, games;
+import Charackter.Character;
+import Yep.User;
 
-    public Played(int id, int userid, int charid, int games) {
+public class Played {
+    private int id, games;
+    private User userId;
+    private Character charId;
+
+
+    public Played(int id, int games, User userId, Character charId) {
         this.id = id;
-        this.userid = userid;
-        this.charid = charid;
         this.games = games;
+        this.userId = userId;
+        this.charId = charId;
     }
 
-    public Played(int userid, int charid, int games) {
-        this.id = id;
-        this.userid = userid;
-        this.charid = charid;
+    public Played(int games, User userId, Character charId) {
         this.games = games;
+        this.userId = userId;
+        this.charId = charId;
     }
 
     public Played() {
@@ -28,27 +33,37 @@ public class Played {
         this.id = id;
     }
 
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
-    public int getCharid() {
-        return charid;
-    }
-
-    public void setCharid(int charid) {
-        this.charid = charid;
-    }
-
     public int getGames() {
         return games;
     }
 
     public void setGames(int games) {
         this.games = games;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public Character getCharId() {
+        return charId;
+    }
+
+    public void setCharId(Character charId) {
+        this.charId = charId;
+    }
+
+    @Override
+    public String toString() {
+        return "Played{" +
+                "id=" + id +
+                ", games=" + games +
+                ", userNmae=" + userId.getUsername() +
+                ", charId=" + charId.getName() +
+                '}';
     }
 }

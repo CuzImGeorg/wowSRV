@@ -41,7 +41,7 @@ INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'G
 
 --Char 6
 //TODO
-INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (600, 0, 80, 'DPS', 'Ar-15', 'ArmaLite 15, developed in US, good for armor penetration' );
+INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (600, 0, 80, 'DPS', 'tmp', 'tmp' );
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Echo' , 0, '30% to  deal a extra of 40 + 50% ad dmg on ability cast', 6);
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'DEAL 50+ 100% ad damage', 6);
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Penetrate' , 2, 'Deal 50 + 70% ad and ignores schied', 6);

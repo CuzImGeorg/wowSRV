@@ -2,6 +2,8 @@ package Yep;
 
 import Charackter.CharakterMgr;
 import Lobby.LobbyMgr;
+import Played.Played;
+import Played.PlayedMrg;
 import Queue.Queue;
 import org.hibernate.Session;
 
@@ -26,6 +28,9 @@ public class Start {
         userManager = new UserManager();
         sockathandler = new Sockathandler();
         sockathandler.start();
+        for(Played p: PlayedMrg.laod(1)) {
+            System.out.println(p.toString());
+        }
 //        for (Character c : charakterMgr.getCharacters()) {
 //            System.out.println(c.getName() + " " +  c.getId());
 //            for (Ability a : c.getAbilitys()) {

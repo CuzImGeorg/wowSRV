@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="Played.Played" table="played" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment"/>
+        </id>
+        <property name="games" type="int">
+            <column name="games" />
+        </property>
+       <many-to-one name="userId" class="Yep.User"  lazy="false">
+           <column name="userid"/>
+       </many-to-one>
+        <many-to-one name="charId" class="Charackter.Character"  lazy="false">
+            <column name="charid"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
+

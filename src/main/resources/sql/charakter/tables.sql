@@ -33,6 +33,7 @@ CREATE TABLE character (
 CREATE TABLE ability(
 	id serial PRIMARY KEY,
 	name varchar(31),
+	aid int,
 	description varchar(255),
 	charid int,
 	FOREIGN KEY(charid) REFERENCES character(id)

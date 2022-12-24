@@ -1,0 +1,1 @@
+INSERT INTO reg_user(username, password, level, xp) VALUES ('adm', 'adm' , 1,0);

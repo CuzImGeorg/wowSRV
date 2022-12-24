@@ -26,5 +26,6 @@
 		<mapping resource="user.hbm.xml" />
 		<mapping resource="character.xml"/>
 		<mapping resource="ability.xml"/>
+		<mapping resource="played.xml" />
 	</session-factory>
 </hibernate-configuration>
