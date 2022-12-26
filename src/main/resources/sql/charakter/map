@@ -34,23 +34,23 @@ Character 6 : DPS mp-5 MP5 ist eine 9 x 19 mm Parabellum-Maschinenpistole in den
               A:  DEAL 100% ad damage cd 2.5
               B:  DEAL 120% ad damge and 20% ad damage to all others cd 15
               C:  Fire 5 patrons that each deal 60% ad every 0.5 sec dmg cd 20
-              D:
+              D:  Gain 5 ad cd 90
 Character 7 : SUP  Mercy
               P:   Gain every 5 min 1 ap
-              A:   HEAL 100 + 50 * ap        cd 15
+              A:   HEAL 100 + 5 * ap        cd 15
               B:   Give allies 10ad + ap/2 ad for 5 sec cd 20
               C:   Attack enemie for 10 + 2 *  ap cd 5
               D:   Heall all allies for 500 and give them 50 ad for 8 sec cd 80
 Character 8 : SUP name HEILER; Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD immer
                                EINSTAZBREREIT um dich und deine STAFFEL zu BESCHÜTZEN!
               P:   Heal all allies for 10 every 5 sec
-              A:   HEAL 100 + 50 * ap        cd 15
+              A:   HEAL 100 + 5 * ap        cd 15
               B:   Shield all your allies for 150 + 40 * ap cd 10 for 2 seconds
               C:   Remove all shields from enemys  cd 25
               D:   HEAL all your allies for 300 + 10 ap cd 80
-Character 9 : SUP
-              P:
-              A:    HEAL 100 + 50 * ap        cd 15
-              B:
-              C:
-              D:
+Character 9 : SUP   Sage boi
+              P:    Gain every 5 min 1 ap
+              A:    HEAL 100 + 5 * ap        cd 15
+              B:    HEAL 80 + 4 * ap + 20 + 2 * ap to all        cd 25
+              C:    Throw a bomb at the enemies dealing 60 dmg to all
+              D:    Give ur allies 10000 schied for 5 seconds cd 140

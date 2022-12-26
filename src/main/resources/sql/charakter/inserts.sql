@@ -41,12 +41,12 @@ INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'G
 
 --Char 6
 //TODO
-INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (600, 0, 80, 'DPS', 'tmp', 'tmp' );
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Echo' , 0, '30% to  deal a extra of 40 + 50% ad dmg on ability cast', 6);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'DEAL 50+ 100% ad damage', 6);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Penetrate' , 2, 'Deal 50 + 70% ad and ignores schied', 6);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Double attack' , 3, 'DEAL 50+ 200% ad damage cd 8', 6);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'Gain 100% ad for 10 sec cd 90', 6);
+INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (600, 0, 80, 'DPS', 'MP-5', 'ist eine 9 x 19 mm Parabellum-Maschinenpistole in den 1960er Jahren vomIngenieuren des deutschen Kleinwaffenherstellers Heckler & Koch entwickelt.' );
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Learn' , 0, 'Every time u hit u have a change of 10 % to get + 2 ad', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'DEAL 100% ad damage cd 2.5', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Shrabnel' , 2, 'DEAL 120% ad damge and 20% ad damage to all others cd 15', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Spray' , 3, 'Fire 5 patrons that each deal 60% ad every 0.5 sec dmg cd 20', 6);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'Gain 5 ad cd 90', 6);
 
 --Char 7
 INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (400, 3, 20, 'SUP', 'Mercy', 'hat keinen Frieden gegen Gegner' );
@@ -59,7 +59,15 @@ INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'H
 --Char 8
 INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (400, 3, 20, 'SUP', 'HEILER', 'Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD immer  EINSTAZBREREIT um dich und deine STAFFEL zu BESCHÜTZEN!' );
 INSERT INTO ability (name, aid, description, charid ) VALUES  ('Scale' , 0, 'Gain every 5 min 1 ap', 8);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 1, 'HEAL 100 + 50 * ap cd 15', 8);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Penetrate' , 2, 'Give allies 10ad + ap/2 ad', 8);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Double attack' , 3, 'DEAL 50+ 200% ad damage cd 8', 8);
-INSERT INTO ability (name, aid, description, charid ) VALUES  ('Empower' , 4, 'Heall all allies for 500 and give them 50 ad for 8 sec cd', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('HEAL' , 1, 'HEAL 100 + 50 * ap cd 15', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Buff' , 2, 'Give allies 10ad + ap/2 ad', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Attack' , 3, 'DEAL 50+ 200% ad damage cd 8', 8);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Heal and Buff' , 4, 'Heall all allies for 500 and give them 50 ad for 8 sec cd', 8);
+
+--Char 9
+INSERT INTO character (maxHp, ad, ap, klasse, name, description) VALUES (400, 3, 20, 'SUP', 'Sage', 'bo' );
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Scale' , 0, 'Gain every 5 min 1 ap', 9);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('heal' , 1, 'HEAL 100 + 50 * ap cd 15', 9);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('heal' , 2, 'HEAL 80 + 4 * ap + 20 + 2 * ap to all        cd 25', 9);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('boom' , 3, 'Throw a bomb at the enemies dealing 60 dmg to all', 9);
+INSERT INTO ability (name, aid, description, charid ) VALUES  ('Unkilable' , 4, 'Give ur allies 10000 schied for 5 seconds cd 140', 9);

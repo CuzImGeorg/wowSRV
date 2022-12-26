@@ -10,6 +10,7 @@ public enum Instruction {
         SELCHAR,
         GETCHARS,
         EXAB,
-                REQPSTATS,
-
+        REQPSTATS,
+        CHANGENAME,
+        REQNAMEHISTORY,
 }

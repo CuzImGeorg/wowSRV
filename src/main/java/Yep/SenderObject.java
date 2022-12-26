@@ -1,6 +1,7 @@
 package Yep;
 
 import Charackter.Character;
+import NameHistory.NameHistory;
 import Played.Played;
 import Queue.QueueUser;
 import Stats.Stats;
@@ -19,6 +20,8 @@ public class SenderObject  implements Serializable {
     private Stats  stats;
     private int c;
     private int ab;
+    private String newUsername;
+    private ArrayList<NameHistory> nameHistory;
 
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
@@ -95,5 +98,22 @@ public class SenderObject  implements Serializable {
 
     public void setStats(Stats stats) {
         this.stats = stats;
+    }
+
+
+    public String getNewUsername() {
+        return newUsername;
+    }
+
+    public void setNewUsername(String newUsername) {
+        this.newUsername = newUsername;
+    }
+
+    public ArrayList<NameHistory> getNameHistory() {
+        return nameHistory;
+    }
+
+    public void setNameHistory(ArrayList<NameHistory> nameHistory) {
+        this.nameHistory = nameHistory;
     }
 }

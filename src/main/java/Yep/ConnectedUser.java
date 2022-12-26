@@ -16,7 +16,9 @@ import javax.persistence.UniqueConstraint;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConnectedUser {
     private User user;
@@ -168,6 +170,22 @@ public class ConnectedUser {
             case REQPSTATS -> {
                 SenderObject s = new SenderObject(Instruction.REQPSTATS);
                 s.setStats(StatsMgr.load(user.getId()));
+                try {
+                    objectOutputStream.writeObject(s);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }case CHANGENAME -> {
+                Session s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                s.beginTransaction();
+                List l = s.createQuery(" SELECT max(id) as c FROM usernamehistory WHERE userid = " + user.getId()).list();
+
+                NameHistory nh = new NameHistory(Integer.parseInt(l.get(0).toString()), user, LocalDateTime.now().toString(), senderObject.getNewUsername() );
+            }
+            case REQNAMEHISTORY -> {
+                SenderObject s = new SenderObject(Instruction.REQNAMEHISTORY);
+                ArrayList<NameHistory> names = NameHistorMgr.load(user.getId());
+
                 try {
                     objectOutputStream.writeObject(s);
                 } catch (IOException e) {

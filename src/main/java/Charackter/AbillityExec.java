@@ -335,7 +335,8 @@ public class AbillityExec implements Serializable {
                         }, 500, 500, TimeUnit.MILLISECONDS);
                     }
                     case  4-> {
-                           //TODO ULT
+                        LobbyUser lu = getUser(so);
+                        lu.getCharackter().setAd(lu.getCharackter().getAd() + 5 );
                     }
 
                 }
@@ -428,19 +429,25 @@ public class AbillityExec implements Serializable {
             case 9 -> {
                 switch (ab) {
                     case 0 -> {
-
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.scheduleAtFixedRate(()-> {
+                            heal(so, true, 10);
+                        }, 10, 10, TimeUnit.SECONDS);
                     }
                     case  1 -> {
-
+                        int ap = getUser(so).getCharackter().getAp();
+                        heal(so, false, 100 + 5*ap );
                     }
                     case  2 -> {
-
+                        int ap = getUser(so).getCharackter().getAp();
+                        heal(so, false, 60 + 4 * ap );
+                        heal(so, true, 20 + 3 * ap);
                     }
                     case  3 -> {
-
+                        makeDMG(so, true, 60);
                     }
                     case  4-> {
-
+                        addschield(so, true, 10000 , 5);
                     }
 
                 }
