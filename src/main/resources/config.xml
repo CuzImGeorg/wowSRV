@@ -27,5 +27,7 @@
 		<mapping resource="character.xml"/>
 		<mapping resource="ability.xml"/>
 		<mapping resource="played.xml" />
+		<mapping resource="stats.xml" />
+		<mapping resource="namelog.xml" />
 	</session-factory>
 </hibernate-configuration>

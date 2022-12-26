@@ -24,27 +24,28 @@ Character 4 : DPS Kalaschnikow desc -> Sowjetischer Damage Dealer; Entwikelt 194
               D: Shoot 8 time  basic ability    cd 80
 Character 5 : DPS Ar-15 des -> ArmaLite 15, developed in US, good for armor penetration
               P:  30% to  deal a extra of 40 + 50% ad dmg on ability cast
-              A:  DEAL 50+ 100% ad damage
+              A:  DEAL  100% ad damage cd 2.5
               B:  Deal 50 + 70% ad and ignores schied
               C:  DEAL 50+ 200% ad damage cd 8
               D:  Gain 100% ad for 10 sec cd 90
-Character 6 : DPS
-              P:  Every time u hit u have a change of 25 % to get + 2 ad
-              A:  DEAL 100% ad damage
-              B:  DEAL 120% ad damge and 20% ad damage to all others
-              C:
+Character 6 : DPS mp-5 MP5 ist eine 9 x 19 mm Parabellum-Maschinenpistole in den 1960er Jahren vom
+                 Ingenieuren des deutschen Kleinwaffenherstellers Heckler & Koch entwickelt.
+              P:  Every time u hit u have a change of 10 % to get + 2 ad
+              A:  DEAL 100% ad damage cd 2.5
+              B:  DEAL 120% ad damge and 20% ad damage to all others cd 15
+              C:  Fire 5 patrons that each deal 60% ad every 0.5 sec dmg cd 20
               D:
 Character 7 : SUP  Mercy
               P:   Gain every 5 min 1 ap
               A:   HEAL 100 + 50 * ap        cd 15
-              B:   Give allies 10ad + ap/2 ad
-              C:   Attack enemie for 10 * ap
-              D:   Heall all allies for 500 and give them 50 ad for 8 sec cd
+              B:   Give allies 10ad + ap/2 ad for 5 sec cd 20
+              C:   Attack enemie for 10 + 2 *  ap cd 5
+              D:   Heall all allies for 500 and give them 50 ad for 8 sec cd 80
 Character 8 : SUP name HEILER; Einer der effizientesern HEILER aus DEUTSCHLAND für besten HEIL und SCHILD immer
                                EINSTAZBREREIT um dich und deine STAFFEL zu BESCHÜTZEN!
               P:   Heal all allies for 10 every 5 sec
               A:   HEAL 100 + 50 * ap        cd 15
-              B:   Shield your allies for 150 + 40 * ap cd 10
+              B:   Shield all your allies for 150 + 40 * ap cd 10 for 2 seconds
               C:   Remove all shields from enemys  cd 25
               D:   HEAL all your allies for 300 + 10 ap cd 80
 Character 9 : SUP

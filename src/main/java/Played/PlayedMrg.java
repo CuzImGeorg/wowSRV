@@ -1,5 +1,8 @@
 package Played;
 
+import Charackter.Character;
+import Stats.Stats;
+import Stats.StatsMgr;
 import Yep.Start;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -9,13 +12,13 @@ import java.util.List;
 
 public class PlayedMrg {
 
-    public static ArrayList<Played> laod(int userid) {
+    public static ArrayList<Played> load(int statsId) {
         ArrayList<Played> arrayList = new ArrayList<Played>();
         Session s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
 //        SQLQuery query = s.createSQLQuery("SELECT charid, games WHERE userid = " + userid);
 //        List<Object[]> list = query.list();
         s.beginTransaction();
-        SQLQuery query = s.createSQLQuery("SELECT id FROM played WHERE userid = " + userid);
+        SQLQuery query = s.createSQLQuery("SELECT id FROM played WHERE statsid = " + statsId);
         List list = query.list();
         ArrayList<Integer> ids = new ArrayList<>();
 
@@ -32,18 +35,26 @@ public class PlayedMrg {
         return arrayList;
     }
 
-//    public static ArrayList<Played> getDefautValues(int userid) {
-//        ArrayList<Played> arrayList = new ArrayList<Played>();
-//        arrayList.add(new Played(userid, 1 , 0));
-//        arrayList.add(new Played(userid, 2 , 0));
-//        arrayList.add(new Played(userid, 3 , 0));
-//        arrayList.add(new Played(userid, 4 , 0));
-//        arrayList.add(new Played(userid, 5 , 0));
-//        arrayList.add(new Played(userid, 6 , 0));
-//        arrayList.add(new Played(userid, 7 , 0));
-//        arrayList.add(new Played(userid, 8 , 0));
-//        arrayList.add(new Played(userid, 9 , 0));
-//        return arrayList;
-//    }
+    public static ArrayList<Played> getDefautValues(int userid) {
+        Session s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+        s.beginTransaction();
+        int stats = StatsMgr.load(userid).getId();
+        s.getTransaction().commit();
+        s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+        s.beginTransaction();
+
+        ArrayList<Played> arrayList = new ArrayList<Played>();
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 1), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 2), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 3), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 4), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 5), 0, stats));
+//        arrayList.add(new Played(0, (Character) s.load(Character.class, 6), 0, stats));
+//        arrayList.add(new Played(0, (Character) s.load(Character.class, 7), 0, stats));
+//        arrayList.add(new Played(0, (Character) s.load(Character.class, 8), 0, stats));
+//        arrayList.add(new Played(0, (Character) s.load(Character.class, 9), 0, stats));
+        s.getTransaction().commit();
+        return arrayList;
+    }
 
 }

@@ -6,7 +6,9 @@ import Yep.SenderObject;
 import Yep.User;
 
 import javax.persistence.Lob;
+import java.awt.event.KeyEvent;
 import java.io.Serializable;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -258,9 +260,9 @@ public class AbillityExec implements Serializable {
                     }
                     case  1 -> {
                         LobbyUser lu = getUser(so);
-                        makeDMG(so,false, 50 + lu.getCharackter().getAd());
+                        makeDMG(so,false, lu.getCharackter().getAd());
                         if(r.nextInt(3) == 0) {
-                            makeDMG(so,false,40 + lu.getCharackter().getAp() * 10);
+                            makeDMG(so,false, (int) (40 + lu.getCharackter().getAd() * 0.5));
 
                         }
                     }
@@ -268,7 +270,7 @@ public class AbillityExec implements Serializable {
                         LobbyUser lu = getUser(so);
                         makeDMGIgnoreSchield(so, false, 50 + (int) (lu.getCharackter().getAp() * 0.75));
                         if(r.nextInt(3) == 0) {
-                            makeDMG(so,false,40 + lu.getCharackter().getAp() * 10);
+                            makeDMG(so,false, (int) (40 + lu.getCharackter().getAd() * 0.5));
 
                         }
                     }
@@ -277,7 +279,7 @@ public class AbillityExec implements Serializable {
                         makeDMG(so,false, 50 + lu.getCharackter().getAd() * 2);
 
                         if(r.nextInt(3) == 0) {
-                            makeDMG(so,false,40 + lu.getCharackter().getAp() * 10);
+                            makeDMG(so,false, (int) (40 + lu.getCharackter().getAd() * 0.5));
 
                         }
                     }
@@ -300,16 +302,40 @@ public class AbillityExec implements Serializable {
 
                     }
                     case  1 -> {
+                        LobbyUser lu = getUser(so);
+                        makeDMG(so,false, lu.getCharackter().getAd());
+                        if(r.nextInt(10) == 0) {
+                            lu.getCharackter().setAd(lu.getCharackter().getAd() + 2);
+                        }
 
                     }
                     case  2 -> {
+                        LobbyUser lu = getUser(so);
+                        makeDMG(so,false, lu.getCharackter().getAd());
+                        makeDMG(so,true, (int) (lu.getCharackter().getAd() * 0.2));
+                        if(r.nextInt(10) == 0) {
+                            lu.getCharackter().setAd(lu.getCharackter().getAd() + 2);
+                        }
 
                     }
                     case  3 -> {
+                        LobbyUser lu = getUser(so);
+                        if(r.nextInt(10) == 0) {
+                            lu.getCharackter().setAd(lu.getCharackter().getAd() + 2);
+                        }
+                        AtomicInteger count = new AtomicInteger(0);
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.scheduleAtFixedRate(() -> {
+                            if(count.get() < 5) {
+                                makeDMG(so, false, (int) (lu.getCharackter().getAd() * 0.6));
+                            }else {
+                                ses.shutdownNow();
+                            }
 
+                        }, 500, 500, TimeUnit.MILLISECONDS);
                     }
                     case  4-> {
-
+                           //TODO ULT
                     }
 
                 }
@@ -317,20 +343,53 @@ public class AbillityExec implements Serializable {
             case 7 -> {
                 switch (ab) {
                     case 0 -> {
+                        LobbyUser lu = getUser(so);
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.scheduleAtFixedRate(()-> {
+                            lu.getCharackter().setAp(lu.getCharackter().getAp() + 1);
+                        }, 5, 5, TimeUnit.MINUTES);
 
                     }
                     case  1 -> {
                         int ap = getUser(so).getCharackter().getAp();
-                        heal(so, true, 100 + 5*ap );
+                        heal(so, false, 100 + 5*ap );
                     }
                     case  2 -> {
+                        LobbyUser lu = getUser(so);
+                        int ad = lu.getCharackter().getAp() * 2 + 10;
+                        users.forEach((user) -> {
+                            if(user.getTeam() == lu.getTeam() && user.getUser().getUser().getId() != lu.getUser().getUser().getId()) {
+                                user.getCharackter().setAd(user.getCharackter().getAd() + ad);
+                            }
+                        });
+
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.schedule(() -> {
+                            users.forEach((user) -> {
+                                if(user.getTeam() == lu.getTeam() && user.getUser().getUser().getId() != lu.getUser().getUser().getId()) {
+                                    user.getCharackter().setAd(user.getCharackter().getAd() - ad);
+                                }
+                            });
+                        }, 5, TimeUnit.SECONDS );
 
                     }
                     case  3 -> {
-
+                        LobbyUser u = getUser(so);
+                        makeDMG(so, false, 10 + u.getCharackter().getAp());
                     }
                     case  4-> {
+                        LobbyUser u = getUser(so);
+                        heal(so, true, 500 );
+                        users.forEach((user) -> {
+                            user.getCharackter().setAd(user.getCharackter().getAd() + 50);
+                        });
 
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.schedule(() -> {
+                            users.forEach((user) -> {
+                                user.getCharackter().setAd(user.getCharackter().getAd() - 50);
+                            });
+                        }, 8, TimeUnit.SECONDS);
                     }
 
                 }
@@ -338,19 +397,30 @@ public class AbillityExec implements Serializable {
             case 8 -> {
                 switch (ab) {
                     case 0 -> {
-
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.scheduleAtFixedRate(()-> {
+                            heal(so, true, 10);
+                        }, 10, 10, TimeUnit.SECONDS);
                     }
                     case  1 -> {
-
+                        int ap = getUser(so).getCharackter().getAp();
+                        heal(so, false, 100 + 5*ap );
                     }
                     case  2 -> {
-
+                        LobbyUser u = getUser(so);
+                        addschield(so, true, 150 + 40 * u.getCharackter().getAp(), 2);
                     }
                     case  3 -> {
-
+                        LobbyUser u = getUser(so);
+                        users.forEach((user) -> {
+                            if(user.getTeam() != u.getTeam() ) {
+                                user.getCharackter().setShield(0);
+                            }
+                        });
                     }
                     case  4-> {
-
+                        int ap = 10 * getUser(so).getCharackter().getAp();
+                        heal(so, true, 300 + ap );
                     }
 
                 }
@@ -552,9 +622,9 @@ public class AbillityExec implements Serializable {
 
 
     public void heal(SenderObject so, boolean all, int heath) {
+        LobbyUser lu = getUser(so);
         if(all) {
-            LobbyUser u = getUser(so);
-            for (LobbyUser lu : users) {
+            for (LobbyUser u : users) {
                 if(lu.getTeam() == u.getTeam()) {
                     if(u.getCharackter().getHp() > 0) {
                         if( u.getCharackter().getHp() + heath > u.getCharackter().getMaxHp()) {
@@ -566,16 +636,69 @@ public class AbillityExec implements Serializable {
 
                 }
             }
+        }else {
+            for (LobbyUser u : users) {
+                if(lu.getTeam() == u.getTeam()) {
+                    if(u.getCharackter().getKlasse().equalsIgnoreCase("TANK")) {
+                        if(u.getCharackter().getHp() > 0) {
+                            if( u.getCharackter().getHp() + heath > u.getCharackter().getMaxHp()) {
+                                u.getCharackter().setHp(u.getCharackter().getMaxHp());
+                            }else {
+                                u.getCharackter().setHp(u.getCharackter().getHp() + heath);
+                            }
+                            break;
+                        }else {
+                            for (LobbyUser u1 : users) {
+                                if(lu.getTeam() == u1.getTeam()) {
+                                    if(u1.getCharackter().getKlasse().equalsIgnoreCase("DPS")) {
+                                        if(u1.getCharackter().getHp() > 0) {
+                                            if( u1.getCharackter().getHp() + heath > u1.getCharackter().getMaxHp()) {
+                                                u1.getCharackter().setHp(u1.getCharackter().getMaxHp());
+                                            }else {
+                                                u1.getCharackter().setHp(u1.getCharackter().getHp() + heath);
+                                            }
+                                            break;
+                                        }else {
+                                            for (LobbyUser u2 : users) {
+                                                if(lu.getTeam() == u2.getTeam()) {
+                                                    if(u2.getCharackter().getKlasse().equalsIgnoreCase("SUP")) {
+                                                        if(u2.getCharackter().getHp() > 0) {
+                                                            if( u2.getCharackter().getHp() + heath > u2.getCharackter().getMaxHp()) {
+                                                                u2.getCharackter().setHp(u2.getCharackter().getMaxHp());
+                                                            }else {
+                                                                u2.getCharackter().setHp(u2.getCharackter().getHp() + heath);
+                                                            }
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
-    public void addschield(SenderObject so, boolean all, int shied) {
+    public void addschield(SenderObject so, boolean all, int shied, int duration) {
         if(all) {
             LobbyUser u = getUser(so);
             for (LobbyUser lu : users) {
                 if(lu.getTeam() == u.getTeam()) {
                     if(u.getCharackter().getHp() > 0) {
-                       //TODO
+                       u.getCharackter().setShield(u.getCharackter().getShield() + shied);
+                       ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                       ses.schedule(() -> {
+                           if(u.getCharackter().getShield() > shied) {
+                               u.getCharackter().setShield(u.getCharackter().getShield() - shied);
+                           }else {
+                               u.getCharackter().setShield(0);
+                           }
+                       }, duration, TimeUnit.SECONDS );
                     }
 
                 }

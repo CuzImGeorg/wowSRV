@@ -1,7 +1,9 @@
 package Yep;
 
 import Charackter.Character;
+import Played.Played;
 import Queue.QueueUser;
+import Stats.Stats;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,6 +16,7 @@ public class SenderObject  implements Serializable {
     private ArrayList<QueueUser> queueUsers;
     private Character character;
     private ArrayList<Character> characters;
+    private Stats  stats;
     private int c;
     private int ab;
 
@@ -84,5 +87,13 @@ public class SenderObject  implements Serializable {
 
     public void setCharacters(ArrayList<Character> characters) {
         this.characters = characters;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
     }
 }

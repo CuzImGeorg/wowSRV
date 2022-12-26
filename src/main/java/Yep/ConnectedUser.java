@@ -2,13 +2,21 @@ package Yep;
 
 import Charackter.AbillityExec;
 import Charackter.Character;
+import NameHistory.NameHistorMgr;
+import NameHistory.NameHistory;
 import Played.Played;
 import Played.PlayedMrg;
+import Stats.StatsMgr;
+import Stats.Stats;
 import org.hibernate.Session;
+import org.hibernate.cfg.UniqueConstraintHolder;
+import org.hibernate.metamodel.source.binder.UniqueConstraintSource;
 
+import javax.persistence.UniqueConstraint;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 
 public class ConnectedUser {
     private User user;
@@ -58,18 +66,37 @@ public class ConnectedUser {
 
     public void handleClient(SenderObject senderObject) {
         switch (senderObject.getInstruction()) {
-            case CREATEUSER ->{
-               Session session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
-               session.beginTransaction();
-               session.save(senderObject.getUser());
-               session.getTransaction().commit();
-               User u = Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword());
-//               session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
-//               session.beginTransaction();
-//               for(Played p : PlayedMrg.getDefautValues(u.getId())) {
-//                   session.save(p);
-//               }
-//               session.getTransaction().commit();
+            case CREATEUSER -> {
+                Session session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                try {
+
+
+                    session.beginTransaction();
+                    session.save(senderObject.getUser());
+                    session.getTransaction().commit();
+                    User u = Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword());
+
+                    Stats s = StatsMgr.getDefautValues(u.getId());
+                    session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                    session.beginTransaction();
+                    session.save(s);
+                    session.getTransaction().commit();
+                    NameHistory n = NameHistorMgr.getDefautValues(u.getId());
+                    session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                    session.beginTransaction();
+                    session.save(n);
+                    session.getTransaction().commit();
+                    ArrayList<Played> playeds =  PlayedMrg.getDefautValues(u.getId());
+                    session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                    session.beginTransaction();
+                    for (Played p : playeds) {
+                        session.save(p);
+                    }
+                    session.getTransaction().commit();
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    session.getTransaction().rollback();
+                }
 
 
 
@@ -92,8 +119,9 @@ public class ConnectedUser {
 
                     }
                     this.user = Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword());
-                    s.setUser(user);
+                    user.setPassword("hahanotapasswort");
                     objectOutputStream.writeObject(s);
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -135,6 +163,15 @@ public class ConnectedUser {
                 if(abillityExec != null) {
                     senderObject.setUser(user);
                     abillityExec.execAbility(senderObject);
+                }
+            }
+            case REQPSTATS -> {
+                SenderObject s = new SenderObject(Instruction.REQPSTATS);
+                s.setStats(StatsMgr.load(user.getId()));
+                try {
+                    objectOutputStream.writeObject(s);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
             default -> {

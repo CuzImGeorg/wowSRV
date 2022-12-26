@@ -1,25 +1,25 @@
 package Played;
 
 import Charackter.Character;
+import Stats.Stats;
 import Yep.User;
 
 public class Played {
-    private int id, games;
-    private User userId;
+    private int id, games, wins, statsId;
     private Character charId;
 
 
-    public Played(int id, int games, User userId, Character charId) {
+    public Played(int id, int games, Character charId,int wins, int statsId) {
         this.id = id;
         this.games = games;
-        this.userId = userId;
         this.charId = charId;
+        this.statsId = statsId;
     }
 
-    public Played(int games, User userId, Character charId) {
+    public Played(int games, Character charId, int wins, int statsId) {
         this.games = games;
-        this.userId = userId;
         this.charId = charId;
+        this.statsId = statsId;
     }
 
     public Played() {
@@ -41,14 +41,6 @@ public class Played {
         this.games = games;
     }
 
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
     public Character getCharId() {
         return charId;
     }
@@ -57,13 +49,33 @@ public class Played {
         this.charId = charId;
     }
 
+    public int getWins() {
+        return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    public void incrementWins() {
+        wins++;
+    }
+
+    public int getStatsId() {
+        return statsId;
+    }
+
+    public void setStatsId(int statsId) {
+        this.statsId = statsId;
+    }
+
     @Override
     public String toString() {
         return "Played{" +
                 "id=" + id +
                 ", games=" + games +
-                ", userNmae=" + userId.getUsername() +
                 ", charId=" + charId.getName() +
+                ", Wins=" + wins +
                 '}';
     }
 }

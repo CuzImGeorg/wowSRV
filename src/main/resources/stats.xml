@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="Stats.Stats" table="stats" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment"/>
+        </id>
+        <property name="hoursPlayed" type="int">
+            <column name="hoursplayed" />
+        </property>
+        <property name="minutesPlayed" type="int">
+            <column name="minutesplayed" />
+        </property>
+        <property name="kills" type="int">
+            <column name="kills" />
+        </property>
+        <property name="deaths" type="int">
+            <column name="deaths" />
+        </property>
+        <many-to-one name="user" class="Yep.User"  lazy="false">
+            <column name="userid"/>
+        </many-to-one>
+        <set name="played" table="played" fetch="select"  lazy="false">
+            <key>
+                <column name="statsid"/>
+            </key>
+            <one-to-many class="Played.Played"  />
+        </set>
+
+    </class>
+</hibernate-mapping>
+

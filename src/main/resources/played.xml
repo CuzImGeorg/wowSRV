@@ -11,9 +11,12 @@
         <property name="games" type="int">
             <column name="games" />
         </property>
-       <many-to-one name="userId" class="Yep.User"  lazy="false">
-           <column name="userid"/>
-       </many-to-one>
+        <property name="wins" type="int">
+            <column name="wins" />
+        </property>
+        <property name="statsId" type="int">
+            <column name="statsid" />
+        </property>
         <many-to-one name="charId" class="Charackter.Character"  lazy="false">
             <column name="charid"/>
         </many-to-one>

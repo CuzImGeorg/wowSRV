@@ -11,7 +11,7 @@
         <property name="username" type="string">
             <column name="username" />
         </property>
-        <property name="password" type="string">
+        <property name="password" type="string" >
             <column name="password" />
         </property>
         <property name="level" type="int">
