@@ -1,8 +1,6 @@
 package Played;
 
-import Charackter.Character;
-import Stats.Stats;
-import Yep.User;
+import Character.Character;
 
 public class Played {
     private int id, games, wins, statsId;

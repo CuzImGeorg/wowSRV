@@ -1,6 +1,6 @@
 package Game;
 
-import Charackter.AbillityExec;
+import Character.AbillityExec;
 import Lobby.LobbyUser;
 
 import java.util.ArrayList;

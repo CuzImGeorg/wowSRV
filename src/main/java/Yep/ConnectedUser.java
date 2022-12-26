@@ -1,7 +1,7 @@
 package Yep;
 
-import Charackter.AbillityExec;
-import Charackter.Character;
+import Character.AbillityExec;
+import Character.Character;
 import NameHistory.NameHistorMgr;
 import NameHistory.NameHistory;
 import Played.Played;
@@ -9,10 +9,7 @@ import Played.PlayedMrg;
 import Stats.StatsMgr;
 import Stats.Stats;
 import org.hibernate.Session;
-import org.hibernate.cfg.UniqueConstraintHolder;
-import org.hibernate.metamodel.source.binder.UniqueConstraintSource;
 
-import javax.persistence.UniqueConstraint;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;

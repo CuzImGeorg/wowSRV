@@ -3,7 +3,7 @@
         "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="Charackter.Character" table="character" >
+    <class name="Character.Character" table="character" >
         <id name="id" type="int">
             <column name="id" />
             <generator class="increment"/>
@@ -31,7 +31,7 @@
             <key>
                 <column name="charid"/>
             </key>
-            <one-to-many class="Charackter.Ability"  />
+            <one-to-many class="Character.Ability"  />
         </set>
         </class>
   </hibernate-mapping>

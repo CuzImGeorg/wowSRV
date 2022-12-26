@@ -1,14 +1,11 @@
-package Charackter;
+package Character;
 
 import Yep.Start;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CharakterMgr {
 

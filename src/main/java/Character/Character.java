@@ -1,4 +1,4 @@
-package Charackter;
+package Character;
 
 import java.awt.image.BufferedImage;
 import java.io.Serial;

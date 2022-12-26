@@ -1,6 +1,6 @@
 package Queue;
 
-import Charackter.Character;
+import Character.Character;
 import Yep.User;
 
 import java.io.Serial;

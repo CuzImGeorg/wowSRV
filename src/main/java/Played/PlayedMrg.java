@@ -1,7 +1,6 @@
 package Played;
 
-import Charackter.Character;
-import Stats.Stats;
+import Character.Character;
 import Stats.StatsMgr;
 import Yep.Start;
 import org.hibernate.SQLQuery;

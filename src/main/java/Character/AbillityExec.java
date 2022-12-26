@@ -1,14 +1,9 @@
- package Charackter;
+ package Character;
 
 import Lobby.LobbyUser;
-import Yep.ConnectedUser;
 import Yep.SenderObject;
-import Yep.User;
 
-import javax.persistence.Lob;
-import java.awt.event.KeyEvent;
 import java.io.Serializable;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Executors;

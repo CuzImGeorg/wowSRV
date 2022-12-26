@@ -1,7 +1,6 @@
 package Lobby;
 
-import Charackter.Character;
-import Queue.QueueUser;
+import Character.Character;
 import Yep.ConnectedUser;
 import Yep.Instruction;
 import Yep.SenderObject;

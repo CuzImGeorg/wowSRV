@@ -1,8 +1,7 @@
 package Yep;
 
-import Charackter.Character;
+import Character.Character;
 import NameHistory.NameHistory;
-import Played.Played;
 import Queue.QueueUser;
 import Stats.Stats;
 
