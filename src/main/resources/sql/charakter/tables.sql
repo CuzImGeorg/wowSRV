@@ -89,8 +89,8 @@ CREATE TABLE figthlog(
         enemychar3 int,
         kills int,
         survived boolean,
-        gameduration varchr(15),
-        dateandtime varchr(31),
+        gameduration varchar(15),
+        dateandtime varchar(31),
 
         FOREIGN KEY (userid) REFERENCES reg_user(id),
         FOREIGN KEY (mate1) REFERENCES reg_user(id),
@@ -99,10 +99,10 @@ CREATE TABLE figthlog(
         FOREIGN KEY (enemy2) REFERENCES reg_user(id),
         FOREIGN KEY (enemy3) REFERENCES reg_user(id),
 
-        FOREIGN KEY (usercharid) REFERENCES character(id),
+        FOREIGN KEY (userchar) REFERENCES character(id),
         FOREIGN KEY (matechar1) REFERENCES character(id),
         FOREIGN KEY (matechar2) REFERENCES character(id),
         FOREIGN KEY (enemychar1) REFERENCES character(id),
         FOREIGN KEY (enemychar2) REFERENCES character(id),
-        FOREIGN KEY (enemychar3) REFERENCES character(id),
+        FOREIGN KEY (enemychar3) REFERENCES character(id)
 );

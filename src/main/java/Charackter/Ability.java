@@ -1,5 +1,6 @@
 package Charackter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Ability implements Serializable {
@@ -10,6 +11,9 @@ public class Ability implements Serializable {
     public Ability() {
 
     }
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
+
 
     public int getId() {
         return id;
@@ -49,5 +53,15 @@ public class Ability implements Serializable {
 
     public void setCharid(Character charid) {
         this.charid = charid;
+    }
+
+    @Override
+    public String toString() {
+        return "Ability{" +
+                "id=" + id +
+                ", aid=" + aid +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

@@ -34,15 +34,6 @@ public class CharakterMgr {
         }
 
         s.getTransaction().commit();
-        //TODO fic img mport
-        for(Character c : characters) {
-            try {
-                c.setImg(ImageIO.read(getClass().getResource("c/" + c.getId() + ".png")));
-            } catch (Exception ignore) {
-
-            }
-        }
-
     }
 
     public ArrayList<Character> getCharacters() {

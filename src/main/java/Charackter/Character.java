@@ -1,6 +1,7 @@
 package Charackter;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -10,6 +11,8 @@ public class Character implements Serializable {
     private BufferedImage img;
     private Set<Ability> abilitys;
 
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     public Character() {
 
     }
@@ -108,5 +111,31 @@ public class Character implements Serializable {
 
     public void setAbilitys(Set<Ability> abilitys) {
         this.abilitys = abilitys;
+    }
+
+
+
+    public String printString() {
+        String s = "Character{" +
+                "id=" + id +
+                ", maxHp=" + maxHp +
+                ", shield=" + shield +
+                ", ad=" + ad +
+                ", cdr=" + cdr +
+                ", hp=" + hp +
+                ", ap=" + ap +
+                ", klasse='" + klasse + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", img=" + img +
+                ", abilitys={";
+
+       for (Ability a : abilitys) {
+           s += "       " + a.toString();
+       }
+       s += "       }";
+       s += "};";
+
+        return s;
     }
 }
