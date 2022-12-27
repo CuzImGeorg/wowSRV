@@ -72,7 +72,7 @@ CREATE TABLE usernamehistory(
 
 );
 
-CREATE TABLE figthlog(
+CREATE TABLE fightlog(
         id serial PRIMARY KEY,
         userid int,
         mate1 int,

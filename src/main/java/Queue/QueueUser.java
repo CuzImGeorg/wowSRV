@@ -10,8 +10,9 @@ public class QueueUser implements Serializable {
     private User user;
     private Character character;
     private int team;
+
     @Serial
-    private static final long serialVersionUID = 7529685098267757690L;
+    private static final long serialVersionUID = 6529685098267757690L;
 
     public QueueUser(User user, Character character, int team) {
         this.user = user;

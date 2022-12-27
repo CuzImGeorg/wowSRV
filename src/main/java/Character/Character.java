@@ -3,6 +3,8 @@ package Character;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Character implements Serializable {
@@ -10,6 +12,7 @@ public class Character implements Serializable {
     private String klasse, name, description;
     private BufferedImage img;
     private Set<Ability> abilitys;
+    private ArrayList<Ability> a;
 
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
@@ -113,7 +116,13 @@ public class Character implements Serializable {
         this.abilitys = abilitys;
     }
 
+    public ArrayList<Ability> getA() {
+        return a;
+    }
 
+    public void setA(ArrayList<Ability> a) {
+        this.a = a;
+    }
 
     public String printString() {
         String s = "Character{" +

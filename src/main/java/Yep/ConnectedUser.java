@@ -2,10 +2,12 @@ package Yep;
 
 import Character.AbillityExec;
 import Character.Character;
+import Lobby.LobbyUser;
 import NameHistory.NameHistorMgr;
 import NameHistory.NameHistory;
 import Played.Played;
 import Played.PlayedMrg;
+import Queue.QueueUser;
 import Stats.StatsMgr;
 import Stats.Stats;
 import org.hibernate.Session;
@@ -85,12 +87,15 @@ public class ConnectedUser {
                     session.beginTransaction();
                     session.save(n);
                     session.getTransaction().commit();
+
                     ArrayList<Played> playeds =  PlayedMrg.getDefautValues(u.getId());
+
                     session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
                     session.beginTransaction();
                     for (Played p : playeds) {
                         session.save(p);
                     }
+
                     session.getTransaction().commit();
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
@@ -119,6 +124,7 @@ public class ConnectedUser {
                     }
                     this.user = Start.getUserManager().loadUer(senderObject.getUser().getUsername(), senderObject.getUser().getPassword());
                     user.setPassword("hahanotapasswort");
+                    s.setUser(user);
                     objectOutputStream.writeObject(s);
 
                 } catch (IOException e) {
@@ -189,6 +195,20 @@ public class ConnectedUser {
                     throw new RuntimeException(e);
                 }
             }
+            case REQGAMEUSER -> {
+                SenderObject so = new SenderObject(Instruction.REQUESTUSER);
+                ArrayList<QueueUser> qu = new ArrayList<>();
+                for (LobbyUser u : abillityExec.getUsers()) {
+                    qu.add(new QueueUser(u.getUser().getUser(), u.getCharackter(), u.getTeam()));
+                }
+                so.setQueueUsers(qu);
+                try {
+                    getObjectOutputStream().writeObject(so);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             default -> {
                 return;
             }

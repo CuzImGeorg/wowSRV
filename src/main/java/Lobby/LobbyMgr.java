@@ -19,8 +19,10 @@ public class LobbyMgr {
         for (ConnectedUser u : users) {
             lobbyUsers.add(new LobbyUser(u));
         }
-        lobbies.add(new Lobby(lobbies.size()+1, lobbyUsers));
-
+        Lobby l = new Lobby(lobbies.size()+1, lobbyUsers);
+        lobbies.add(l);
+        Thread t = new Thread(l::start);
+        t.start();
     }
 
 }

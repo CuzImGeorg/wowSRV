@@ -13,4 +13,6 @@ public enum Instruction {
         REQPSTATS,
         CHANGENAME,
         REQNAMEHISTORY,
+        RDMCHAR,
+        REQGAMEUSER,
 }

@@ -5,7 +5,9 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CharakterMgr {
 
@@ -26,8 +28,11 @@ public class CharakterMgr {
         s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
         s.beginTransaction();
         for(int i = 0; i < max; i++) {
-            characters.add((Character) s.load(Character.class, i+1));
-
+             Character c = (Character) s.load(Character.class, i+1);
+             Set<Ability> a = c.getAbilitys();
+             ArrayList<Ability> arrayList = new ArrayList<Ability>(a);
+             c.setA(arrayList);
+             characters.add(c);
         }
 
         s.getTransaction().commit();

@@ -16,7 +16,6 @@ public class Lobby {
     public Lobby(int id, ArrayList<LobbyUser> users) {
         this.id = id;
         this.users = users;
-        start();
     }
 
     public void start() {
@@ -51,8 +50,8 @@ public class Lobby {
             if(checkForSel()) {
                 //TODO gamestart
                 Game g = new Game(users);
-                g.start();
-
+                Thread t = new Thread(g::start);
+                t.start();
 
                 break;
             };

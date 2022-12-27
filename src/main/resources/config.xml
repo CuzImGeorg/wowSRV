@@ -29,5 +29,6 @@
 		<mapping resource="played.xml" />
 		<mapping resource="stats.xml" />
 		<mapping resource="namelog.xml" />
+		<mapping resource="fightlog.xml " />
 	</session-factory>
 </hibernate-configuration>

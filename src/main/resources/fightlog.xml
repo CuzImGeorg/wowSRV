@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="Character.Fightlog" table="fightlog" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment"/>
+        </id>
+        <property name="won" type="boolean">
+            <column name="won" />
+        </property>
+        <property name="kills" type="int">
+            <column name="kills" />
+        </property>
+        <property name="survived" type="boolean">
+            <column name="survived" />
+        </property>
+        <property name="gameDuration" type="string">
+            <column name="gameduration" />
+        </property>
+
+        <property name="dateAndTime" type="string">
+            <column name="dateandtime" />
+        </property>
+
+        <many-to-one name="user" class="Yep.User">
+            <column name="userid"/>
+        </many-to-one>
+        <many-to-one name="mate1" class="Yep.User">
+            <column name="mate1"/>
+        </many-to-one>
+        <many-to-one name="enemy1" class="Yep.User">
+            <column name="enemy1"/>
+        </many-to-one>
+        <many-to-one name="enemy2" class="Yep.User">
+            <column name="enemy2"/>
+        </many-to-one>
+        <many-to-one name="enemy3" class="Yep.User">
+            <column name="enemy3"/>
+        </many-to-one>
+
+        <many-to-one name="character" class="Character.Character">
+            <column name="userchar"/>
+        </many-to-one>
+        <many-to-one name="matechar1" class="Character.Character">
+            <column name="matechar1"/>
+        </many-to-one>
+        <many-to-one name="matechar2" class="Character.Character">
+            <column name="matechar2"/>
+        </many-to-one>
+        <many-to-one name="enemychar1" class="Character.Character">
+            <column name="enemychar1"/>
+        </many-to-one>
+        <many-to-one name="enemychar2" class="Character.Character">
+            <column name="enemychar2"/>
+        </many-to-one>
+        <many-to-one name="enemychar3" class="Character.Character">
+            <column name="enemychar3"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
+

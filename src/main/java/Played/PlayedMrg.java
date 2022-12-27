@@ -6,6 +6,7 @@ import Yep.Start;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +36,8 @@ public class PlayedMrg {
     }
 
     public static ArrayList<Played> getDefautValues(int userid) {
-        Session s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
-        s.beginTransaction();
         int stats = StatsMgr.load(userid).getId();
-        s.getTransaction().commit();
-        s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+        Session s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
         s.beginTransaction();
 
         ArrayList<Played> arrayList = new ArrayList<Played>();
@@ -48,10 +46,10 @@ public class PlayedMrg {
         arrayList.add(new Played(0, (Character) s.load(Character.class, 3), 0, stats));
         arrayList.add(new Played(0, (Character) s.load(Character.class, 4), 0, stats));
         arrayList.add(new Played(0, (Character) s.load(Character.class, 5), 0, stats));
-//        arrayList.add(new Played(0, (Character) s.load(Character.class, 6), 0, stats));
-//        arrayList.add(new Played(0, (Character) s.load(Character.class, 7), 0, stats));
-//        arrayList.add(new Played(0, (Character) s.load(Character.class, 8), 0, stats));
-//        arrayList.add(new Played(0, (Character) s.load(Character.class, 9), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 6), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 7), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 8), 0, stats));
+        arrayList.add(new Played(0, (Character) s.load(Character.class, 9), 0, stats));
         s.getTransaction().commit();
         return arrayList;
     }

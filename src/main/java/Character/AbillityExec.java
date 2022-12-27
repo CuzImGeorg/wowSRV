@@ -622,6 +622,9 @@ public class AbillityExec implements Serializable {
         }
     }
 
+    public ArrayList<LobbyUser> getUsers() {
+        return users;
+    }
 
     public void heal(SenderObject so, boolean all, int heath) {
         LobbyUser lu = getUser(so);

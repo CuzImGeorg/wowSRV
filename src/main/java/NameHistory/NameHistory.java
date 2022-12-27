@@ -2,7 +2,10 @@ package NameHistory;
 
 import Yep.User;
 
-public class NameHistory {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class NameHistory implements Serializable {
     private int id, changed;
     private User user;
     private String dateAndTime, username;
@@ -28,6 +31,8 @@ public class NameHistory {
         this.username = username;
     }
 
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     public NameHistory() {
     }
 
