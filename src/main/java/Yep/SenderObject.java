@@ -21,6 +21,7 @@ public class SenderObject  implements Serializable {
     private int ab;
     private String newUsername;
     private ArrayList<NameHistory> nameHistory;
+    private int teamWon;
 
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
@@ -115,4 +116,13 @@ public class SenderObject  implements Serializable {
     public void setNameHistory(ArrayList<NameHistory> nameHistory) {
         this.nameHistory = nameHistory;
     }
+
+    public int getTeamWon() {
+        return teamWon;
+    }
+
+    public void setTeamWon(int teamWon) {
+        this.teamWon = teamWon;
+    }
+
 }

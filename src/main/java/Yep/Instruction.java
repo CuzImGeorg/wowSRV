@@ -15,4 +15,6 @@ public enum Instruction {
         REQNAMEHISTORY,
         RDMCHAR,
         REQGAMEUSER,
+        GAMESTARTCD,
+        GAMEFINISCHED,
 }

@@ -48,7 +48,21 @@ public class Lobby {
 
         while (true) {
             if(checkForSel()) {
+                SenderObject so = new SenderObject(Instruction.GAMESTARTCD);
+                users.forEach((u) -> {
+                    try {
+                        u.getUser().getObjectOutputStream().writeObject(so);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
                 //TODO gamestart
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 Game g = new Game(users);
                 Thread t = new Thread(g::start);
                 t.start();
