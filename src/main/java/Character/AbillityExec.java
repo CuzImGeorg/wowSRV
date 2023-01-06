@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AbillityExec implements Serializable {
 
     private ArrayList<LobbyUser> users;
-    private Random r;
+    private final Random r;
 
     public AbillityExec(ArrayList<LobbyUser> users) {
         this.users = users;
@@ -42,7 +42,7 @@ public class AbillityExec implements Serializable {
                     case  1 -> {
                         int shield = (int) (so.getCharacter().getHp() * 0.1);
                         LobbyUser  u = getUser(so);
-                        Character c = u.getCharackter();
+                        Charakter c = u.getCharackter();
                         c.setShield(shield);
                         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
                         ses.schedule(()-> {
@@ -120,7 +120,7 @@ public class AbillityExec implements Serializable {
                         lu.getCharackter().setShield(shield);
                         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
                         ses.schedule(()-> {
-                            Character c = lu.getCharackter();
+                            Charakter c = lu.getCharackter();
                             if(c.getShield() > 0) {
                                 if(c.getShield() - shield < 0) {
                                     c.setShield(0);
@@ -199,41 +199,41 @@ public class AbillityExec implements Serializable {
                         //passive is in ability
                     }
                     case  1 -> {
-                        Character character = getUser(so).getCharackter();
-                        makeDMG(so,false,character.getAd());
+                        Charakter charakter = getUser(so).getCharackter();
+                        makeDMG(so,false, charakter.getAd());
                         if(r.nextInt(10) == 0) {
-                            makeDMG(so,false,character.getAd());
+                            makeDMG(so,false, charakter.getAd());
                         }
 
                     }
                     case  2 -> {
-                        Character character = getUser(so).getCharackter();
+                        Charakter charakter = getUser(so).getCharackter();
                         if(r.nextInt(4) == 0) {
-                            makeDMG(so,false, (int) (character.getAd() * 1.1) *2);
+                            makeDMG(so,false, (int) (charakter.getAd() * 1.1) *2);
                         }else {
-                            makeDMG(so,false, (int) (character.getAd() * 1.1));
+                            makeDMG(so,false, (int) (charakter.getAd() * 1.1));
                         }
                         if(r.nextInt(10) == 0) {
                             if(r.nextInt(4) == 0) {
-                                makeDMG(so,false, (int) (character.getAd() * 1.1) *2);
+                                makeDMG(so,false, (int) (charakter.getAd() * 1.1) *2);
                             }else {
-                                makeDMG(so,false, (int) (character.getAd() * 1.1));
+                                makeDMG(so,false, (int) (charakter.getAd() * 1.1));
                             }
                         }
 
                     }
                     case  3 -> {
-                        Character character = getUser(so).getCharackter();
-                        character.setAd((int) (character.getAd() + character.getAd()*0.30));
+                        Charakter charakter = getUser(so).getCharackter();
+                        charakter.setAd((int) (charakter.getAd() + charakter.getAd()*0.30));
                         if(r.nextInt(10) == 0) {
-                            character.setAd((int) (character.getAd() + character.getAd()*0.30));
+                            charakter.setAd((int) (charakter.getAd() + charakter.getAd()*0.30));
                         }
                     }
                     case  4-> {
-                        Character character = getUser(so).getCharackter();
+                        Charakter charakter = getUser(so).getCharackter();
                         Thread t = new Thread(()-> {
                             for (int i = 0; i < 8; i++) {
-                                makeDMG(so,false,character.getAd());
+                                makeDMG(so,false, charakter.getAd());
                                 try {
                                     Thread.sleep(250);
                                 } catch (InterruptedException e) {
@@ -459,6 +459,15 @@ public class AbillityExec implements Serializable {
     public LobbyUser getUser(SenderObject so) {
         for (LobbyUser lu : users) {
             if(lu.getUser().getUser().getId() == so.getUser().getId()) {
+                return lu;
+            }
+        }
+        return null;
+    }
+
+    public LobbyUser getUser(int id) {
+        for (LobbyUser lu : users) {
+            if(lu.getUser().getUser().getId() == id) {
                 return lu;
             }
         }

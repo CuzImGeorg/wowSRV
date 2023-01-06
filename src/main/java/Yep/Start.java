@@ -26,7 +26,6 @@ public class Start {
         userManager = new UserManager();
         sockathandler = new Sockathandler();
         sockathandler.start();
-
 //        Stats stats = StatsMgr.load(1);
 //        stats.printString();
 //        for (Character c : charakterMgr.getCharacters()) {
@@ -48,6 +47,7 @@ public class Start {
     public static Sockathandler getSockathandler() {
         return sockathandler;
     }
+
 
     public static UserManager getUserManager() {
         return userManager;

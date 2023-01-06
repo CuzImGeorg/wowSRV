@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="Character.Settings" table="settings" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment"/>
+        </id>
+        <property name="ability1" type="int">
+            <column name="ability1" />
+        </property>
+        <property name="ability2" type="int">
+            <column name="ability2" />
+        </property>
+        <property name="ability3" type="int">
+            <column name="ability3" />
+        </property>
+        <property name="ability4" type="int">
+            <column name="ability4" />
+        </property>
+        <property name="userid" type="int">
+            <column name="userid" />
+        </property>
+    </class>
+</hibernate-mapping>
+

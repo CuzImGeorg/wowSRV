@@ -4,10 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
-public class Character implements Serializable {
+public class Charakter implements Serializable {
     private int id, maxHp,shield, ad, cdr, hp, ap;
     private String klasse, name, description;
     private BufferedImage img;
@@ -16,7 +15,7 @@ public class Character implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
-    public Character() {
+    public Charakter() {
 
     }
 

@@ -16,7 +16,6 @@ import Stats.StatsMgr;
 import Yep.SenderObject;
 import Yep.Start;
 import Character.Fightlog;
-import org.hibernate.PessimisticLockException;
 import org.hibernate.Session;
 
 import static Yep.Instruction.GAMEFINISCHED;
@@ -69,12 +68,12 @@ public class Game {
             }
         });
 
-        HashMap<LobbyUser, Stats> userStats = new HashMap<LobbyUser, Stats>();
+        HashMap<LobbyUser, Stats> userStats = new HashMap<>();
         for(LobbyUser u : users) {
             userStats.put(u, StatsMgr.load(u.getUser().getUser().getId()));
         }
-        ArrayList<Played> toUpdate = new ArrayList<Played>();
-        ArrayList<Fightlog> toUpdateF = new ArrayList<Fightlog>();
+        ArrayList<Played> toUpdate = new ArrayList<>();
+        ArrayList<Fightlog> toUpdateF = new ArrayList<>();
         userStats.forEach((user, stats)  -> {
             if(stats.getMinutesPlayed() + min > 59) {
                 stats.setHoursPlayed(stats.getHoursPlayed() +1 );
@@ -137,16 +136,13 @@ public class Game {
 
         Session s2 = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
         s2.beginTransaction();
-        userStats.forEach((user, stats)  -> {
-            s2.update(stats);
-        });
+        userStats.forEach((user, stats)  -> s2.update(stats));
         s2.getTransaction().commit();
 
         Session s3 = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
         s3.beginTransaction();
         toUpdateF.forEach(s3::save);
         s3.getTransaction().commit();
-
     }
 
     public void checkIfWon() {
@@ -170,14 +166,16 @@ public class Game {
                     gameWon = true;
                     gameWon(1);
                 }
-
             }
-
-
         }, 20 , 3, TimeUnit.SECONDS);
-
-
     }
 
 
+    public ArrayList<LobbyUser> getUsers() {
+        return users;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
+    }
 }

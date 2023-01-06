@@ -28,7 +28,8 @@
 		<mapping resource="ability.xml"/>
 		<mapping resource="played.xml" />
 		<mapping resource="stats.xml" />
-		<mapping resource="namelog.xml" />
-		<mapping resource="fightlog.xml " />
+		<mapping resource="usernamehistory.xml" />
+		<mapping resource="fightlog.xml" />
+		<mapping resource="settings.xml" />
 	</session-factory>
 </hibernate-configuration>

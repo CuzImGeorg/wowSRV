@@ -14,7 +14,7 @@
         <property name="description" type="string">
             <column name="description" />
         </property>
-        <many-to-one name="charid" class="Character.Character" lazy="false">
+        <many-to-one name="charid" class="Character.Charakter" lazy="false">
             <column name="charid"  not-null="true"/>
         </many-to-one>
     </class>

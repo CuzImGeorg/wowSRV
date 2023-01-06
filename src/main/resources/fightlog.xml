@@ -41,22 +41,22 @@
             <column name="enemy3"/>
         </many-to-one>
 
-        <many-to-one name="character" class="Character.Character">
+        <many-to-one name="character" class="Character.Charakter">
             <column name="userchar"/>
         </many-to-one>
-        <many-to-one name="matechar1" class="Character.Character">
+        <many-to-one name="matechar1" class="Character.Charakter">
             <column name="matechar1"/>
         </many-to-one>
-        <many-to-one name="matechar2" class="Character.Character">
+        <many-to-one name="matechar2" class="Character.Charakter">
             <column name="matechar2"/>
         </many-to-one>
-        <many-to-one name="enemychar1" class="Character.Character">
+        <many-to-one name="enemychar1" class="Character.Charakter">
             <column name="enemychar1"/>
         </many-to-one>
-        <many-to-one name="enemychar2" class="Character.Character">
+        <many-to-one name="enemychar2" class="Character.Charakter">
             <column name="enemychar2"/>
         </many-to-one>
-        <many-to-one name="enemychar3" class="Character.Character">
+        <many-to-one name="enemychar3" class="Character.Charakter">
             <column name="enemychar3"/>
         </many-to-one>
     </class>

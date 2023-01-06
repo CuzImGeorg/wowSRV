@@ -25,6 +25,7 @@ public class UserManager {
        Object[] row = rows.get(0);
        user.setId(Integer.parseInt( row[0].toString()));
        user.setUsername(row[1].toString());
+       user.setPassword(row[2].toString());
        user.setLevel(Integer.parseInt(row[3].toString()));
        user.setXp(Integer.parseInt(row[4].toString()));
        if(row[5] != null) {

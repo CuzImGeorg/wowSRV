@@ -17,4 +17,6 @@ public enum Instruction {
         REQGAMEUSER,
         GAMESTARTCD,
         GAMEFINISCHED,
+        GETSETTINGS,
+        DC,
 }

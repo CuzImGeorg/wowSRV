@@ -1,20 +1,20 @@
 package Played;
 
-import Character.Character;
+import Character.Charakter;
 
 public class Played {
     private int id, games, wins, statsId;
-    private Character charId;
+    private Charakter charId;
 
 
-    public Played(int id, int games, Character charId,int wins, int statsId) {
+    public Played(int id, int games, Charakter charId, int wins, int statsId) {
         this.id = id;
         this.games = games;
         this.charId = charId;
         this.statsId = statsId;
     }
 
-    public Played(int games, Character charId, int wins, int statsId) {
+    public Played(int games, Charakter charId, int wins, int statsId) {
         this.games = games;
         this.charId = charId;
         this.statsId = statsId;
@@ -39,11 +39,11 @@ public class Played {
         this.games = games;
     }
 
-    public Character getCharId() {
+    public Charakter getCharId() {
         return charId;
     }
 
-    public void setCharId(Character charId) {
+    public void setCharId(Charakter charId) {
         this.charId = charId;
     }
 

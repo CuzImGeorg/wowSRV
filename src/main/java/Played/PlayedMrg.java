@@ -1,12 +1,11 @@
 package Played;
 
-import Character.Character;
+import Character.Charakter;
 import Stats.StatsMgr;
 import Yep.Start;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,15 +40,15 @@ public class PlayedMrg {
         s.beginTransaction();
 
         ArrayList<Played> arrayList = new ArrayList<Played>();
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 1), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 2), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 3), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 4), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 5), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 6), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 7), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 8), 0, stats));
-        arrayList.add(new Played(0, (Character) s.load(Character.class, 9), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 1), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 2), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 3), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 4), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 5), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 6), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 7), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 8), 0, stats));
+        arrayList.add(new Played(0, (Charakter) s.load(Charakter.class, 9), 0, stats));
         s.getTransaction().commit();
         return arrayList;
     }

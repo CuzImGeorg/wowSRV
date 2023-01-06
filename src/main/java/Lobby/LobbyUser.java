@@ -1,16 +1,13 @@
 package Lobby;
 
-import Character.Character;
+import Character.Charakter;
 import Yep.ConnectedUser;
-import Yep.Instruction;
-import Yep.SenderObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class LobbyUser {
     private ConnectedUser user;
-    private Character character;
+    private Charakter charakter;
     private int team;
 
     public  LobbyUser(ConnectedUser user) {
@@ -28,27 +25,17 @@ public class LobbyUser {
 
     public void waitForCham(ArrayList<LobbyUser> users) {
         Thread t = new Thread(()->{
-            character = user.getCIfSetOrWait();
-            for (LobbyUser lu: users  ) {
-                SenderObject s = new SenderObject(Instruction.GETCHARS);
-                s.setUser(user.getUser());
-                s.setCharacter(character);
-                try {
-                    lu.getUser().getObjectOutputStream().writeObject(s);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            charakter = user.getCIfSetOrWait();
         });
         t.start();
     }
 
-    public Character getCharackter() {
-        return character;
+    public Charakter getCharackter() {
+        return charakter;
     }
 
-    public void setCharackter(Character character) {
-        this.character = character;
+    public void setCharackter(Charakter charakter) {
+        this.charakter = charakter;
     }
 
     public int getTeam() {

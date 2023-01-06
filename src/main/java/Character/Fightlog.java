@@ -1,7 +1,6 @@
 package Character;
 
 import Yep.User;
-import Character.Character;
 
 public class Fightlog {
     private boolean won, survived;
@@ -9,9 +8,9 @@ public class Fightlog {
     private String gameDuration, dateAndTime;
 
     private User user, mate1, mate2, enemy1, enemy2, enemy3;
-    private Character character,  matechar1, matechar2, enemychar1, enemychar2, enemychar3;
+    private Charakter character,  matechar1, matechar2, enemychar1, enemychar2, enemychar3;
 
-    public Fightlog(boolean won, boolean survived, int kills, String gameDuration, String dateAndTime, User user, User mate1, User mate2, User enemy1, User enemy2, User enemy3, Character character, Character matechar1, Character matechar2, Character enemychar1, Character enemychar2, Character enemychar3) {
+    public Fightlog(boolean won, boolean survived, int kills, String gameDuration, String dateAndTime, User user, User mate1, User mate2, User enemy1, User enemy2, User enemy3, Charakter charakter, Charakter matechar1, Charakter matechar2, Charakter enemychar1, Charakter enemychar2, Charakter enemychar3) {
         this.won = won;
         this.survived = survived;
         this.kills = kills;
@@ -23,7 +22,7 @@ public class Fightlog {
         this.enemy1 = enemy1;
         this.enemy2 = enemy2;
         this.enemy3 = enemy3;
-        this.character = character;
+        this.character = charakter;
         this.matechar1 = matechar1;
         this.matechar2 = matechar2;
         this.enemychar1 = enemychar1;
@@ -131,51 +130,51 @@ public class Fightlog {
         this.enemy3 = enemy3;
     }
 
-    public Character getCharacter() {
+    public Charakter getCharacter() {
         return character;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
+    public void setCharacter(Charakter charakter) {
+        this.character = charakter;
     }
 
-    public Character getMatechar1() {
+    public Charakter getMatechar1() {
         return matechar1;
     }
 
-    public void setMatechar1(Character matechar1) {
+    public void setMatechar1(Charakter matechar1) {
         this.matechar1 = matechar1;
     }
 
-    public Character getMatechar2() {
+    public Charakter getMatechar2() {
         return matechar2;
     }
 
-    public void setMatechar2(Character matechar2) {
+    public void setMatechar2(Charakter matechar2) {
         this.matechar2 = matechar2;
     }
 
-    public Character getEnemychar1() {
+    public Charakter getEnemychar1() {
         return enemychar1;
     }
 
-    public void setEnemychar1(Character enemychar1) {
+    public void setEnemychar1(Charakter enemychar1) {
         this.enemychar1 = enemychar1;
     }
 
-    public Character getEnemychar2() {
+    public Charakter getEnemychar2() {
         return enemychar2;
     }
 
-    public void setEnemychar2(Character enemychar2) {
+    public void setEnemychar2(Charakter enemychar2) {
         this.enemychar2 = enemychar2;
     }
 
-    public Character getEnemychar3() {
+    public Charakter getEnemychar3() {
         return enemychar3;
     }
 
-    public void setEnemychar3(Character enemychar3) {
+    public void setEnemychar3(Charakter enemychar3) {
         this.enemychar3 = enemychar3;
     }
 }

@@ -28,6 +28,7 @@ public class NameHistorMgr {
             ids.add(Integer.valueOf(list.get(i).toString()));
         }
         s.getTransaction().commit();
+
         ids.forEach((id) -> {
             Session session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
             session.beginTransaction();

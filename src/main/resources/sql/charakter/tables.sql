@@ -11,16 +11,19 @@ CREATE TABLE reg_user(
 
 );
 CREATE Table settings(
-	ability1 varchar(6),
-	ability2 varchar(6),
-	ability3 varchar(6),
-	ability4 varchar(6)
+    id serial primary key,
+    userid int,
+	ability1 int,
+	ability2 int,
+	ability3 int,
+	ability4 int,
 
+    FOREIGN KEY (userid) REFERENCES reg_user(id)
 );
 
 
 
-CREATE TABLE character (
+CREATE TABLE charakter (
 	id serial PRIMARY KEY,
 	maxHp int,
 	ad int,
@@ -36,7 +39,7 @@ CREATE TABLE ability(
 	aid int,
 	description varchar(255),
 	charid int,
-	FOREIGN KEY(charid) REFERENCES character(id)
+	FOREIGN KEY(charid) REFERENCES charakter(id)
 );
 
 CREATE TABLE played(
@@ -45,7 +48,7 @@ CREATE TABLE played(
 	games int,
 	wins int,
 	statsid int,
-	FOREIGN KEY (charid) REFERENCES character(id),
+	FOREIGN KEY (charid) REFERENCES charakter(id),
     FOREIGN KEY (statsid) REFERENCES stats(id)
 
 );
@@ -58,7 +61,7 @@ CREATE TABLE stats(
         kills int,
         deaths int,
 
-        FOREIGN KEY (userid) REFERENCES reg_user(id),
+        FOREIGN KEY (userid) REFERENCES reg_user(id)
 
 );
 
@@ -99,10 +102,10 @@ CREATE TABLE fightlog(
         FOREIGN KEY (enemy2) REFERENCES reg_user(id),
         FOREIGN KEY (enemy3) REFERENCES reg_user(id),
 
-        FOREIGN KEY (userchar) REFERENCES character(id),
-        FOREIGN KEY (matechar1) REFERENCES character(id),
-        FOREIGN KEY (matechar2) REFERENCES character(id),
-        FOREIGN KEY (enemychar1) REFERENCES character(id),
-        FOREIGN KEY (enemychar2) REFERENCES character(id),
-        FOREIGN KEY (enemychar3) REFERENCES character(id)
+        FOREIGN KEY (userchar) REFERENCES charakter(id),
+        FOREIGN KEY (matechar1) REFERENCES charakter(id),
+        FOREIGN KEY (matechar2) REFERENCES charakter(id),
+        FOREIGN KEY (enemychar1) REFERENCES charakter(id),
+        FOREIGN KEY (enemychar2) REFERENCES charakter(id),
+        FOREIGN KEY (enemychar3) REFERENCES charakter(id)
 );
