@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Ability implements Serializable {
-    private int id,aid;
+    private int id,aid, cd;
     private String name, description;
     private Charakter charid;
 
@@ -53,6 +53,14 @@ public class Ability implements Serializable {
 
     public void setCharid(Charakter charid) {
         this.charid = charid;
+    }
+
+    public int getCd() {
+        return cd;
+    }
+
+    public void setCd(int cd) {
+        this.cd = cd;
     }
 
     @Override

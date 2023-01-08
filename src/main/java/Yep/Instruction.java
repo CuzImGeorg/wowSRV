@@ -18,5 +18,9 @@ public enum Instruction {
         GAMESTARTCD,
         GAMEFINISCHED,
         GETSETTINGS,
+        CHANGEPWD,
+        REQPWDHISTORY,
+        REQFIGHTLOG,
+        SAVESETTINGS,
         DC,
 }

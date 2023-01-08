@@ -20,7 +20,7 @@ public class Start {
         lobbyMgr = new LobbyMgr();
         queue = new Queue();
         hibernateUtil = new HibernateUtil();
-        charakterMgr = new CharakterMgr();
+
         Session s = hibernateUtil.getSessionFactory().getCurrentSession();
         charakterMgr = new CharakterMgr();
         userManager = new UserManager();

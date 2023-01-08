@@ -4,9 +4,7 @@ import Yep.Start;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CharakterMgr {
 
@@ -30,6 +28,7 @@ public class CharakterMgr {
              Charakter c = (Charakter) s.load(Charakter.class, i+1);
              Set<Ability> a = c.getAbilitys();
              ArrayList<Ability> arrayList = new ArrayList<Ability>(a);
+            arrayList.sort(Comparator.comparing(Ability::getAid));
              c.setA(arrayList);
              charakters.add(c);
         }

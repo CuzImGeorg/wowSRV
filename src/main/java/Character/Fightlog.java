@@ -2,11 +2,15 @@ package Character;
 
 import Yep.User;
 
-public class Fightlog {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Fightlog implements Serializable {
     private boolean won, survived;
     private int kills, id;
     private String gameDuration, dateAndTime;
-
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private User user, mate1, mate2, enemy1, enemy2, enemy3;
     private Charakter character,  matechar1, matechar2, enemychar1, enemychar2, enemychar3;
 

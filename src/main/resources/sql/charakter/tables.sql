@@ -37,6 +37,7 @@ CREATE TABLE ability(
 	id serial PRIMARY KEY,
 	name varchar(31),
 	aid int,
+	cd int,
 	description varchar(255),
 	charid int,
 	FOREIGN KEY(charid) REFERENCES charakter(id)
@@ -71,6 +72,16 @@ CREATE TABLE usernamehistory(
         changed int,
         dateandtime varchar(255),
         username varchar(30)  NOT NULL,
+        FOREIGN KEY (userid) REFERENCES reg_user(id)
+
+);
+
+CREATE TABLE passwordhistory(
+        id serial PRIMARY KEY,
+        userid int,
+        changed int,
+        dateandtime varchar(255),
+        newpassword varchar(30)  NOT NULL,
         FOREIGN KEY (userid) REFERENCES reg_user(id)
 
 );

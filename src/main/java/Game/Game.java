@@ -16,6 +16,7 @@ import Stats.StatsMgr;
 import Yep.SenderObject;
 import Yep.Start;
 import Character.Fightlog;
+import Yep.User;
 import org.hibernate.Session;
 
 import static Yep.Instruction.GAMEFINISCHED;
@@ -59,14 +60,14 @@ public class Game {
 
     public void gameWon(int teamWon) {
 
-        SenderObject so = new SenderObject(GAMEFINISCHED);
-        users.forEach((u) -> {
-            try {
-                u.getUser().getObjectOutputStream().writeObject(so);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+//        SenderObject so = new SenderObject(GAMEFINISCHED);
+//        users.forEach((u) -> {
+//            try {
+//                u.getUser().getObjectOutputStream().writeObject(so);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
 
         HashMap<LobbyUser, Stats> userStats = new HashMap<>();
         for(LobbyUser u : users) {
@@ -74,24 +75,38 @@ public class Game {
         }
         ArrayList<Played> toUpdate = new ArrayList<>();
         ArrayList<Fightlog> toUpdateF = new ArrayList<>();
+        ArrayList<User> toUpdateUser = new ArrayList<>();
         userStats.forEach((user, stats)  -> {
             if(stats.getMinutesPlayed() + min > 59) {
                 stats.setHoursPlayed(stats.getHoursPlayed() +1 );
                 stats.setMinutesPlayed(min - (60 - stats.getMinutesPlayed()));
+            }else {
+                stats.setMinutesPlayed(min);
             }
-            if(user.getCharackter().getHp() > 0) {
+            if(user.getCharackter().getHp() <= 0) {
                 stats.setDeaths(stats.getDeaths() + 1);
             }
             int killCounter = 0;
             for(LobbyUser lu : users) {
                 if(lu.getTeam() != user.getTeam()) {
-                    if(lu.getCharackter().getHp() == 0) {
+                    if(lu.getCharackter().getHp() <= 0) {
                         killCounter++;
                     }
                 }
             }
             stats.setKills(stats.getKills() + killCounter);
 
+            if(user.getTeam() == teamWon) {
+                user.getUser().getUser().setXp(user.getUser().getUser().getXp() + 100);
+            }else {
+                user.getUser().getUser().setXp(user.getUser().getUser().getXp() + 50);
+            }
+            user.getUser().getUser().setXp(user.getUser().getUser().getXp() + min);
+            if(user.getUser().getUser().getXp() > 1000) {
+                user.getUser().getUser().setLevel(user.getUser().getUser().getLevel() + 1);
+                user.getUser().getUser().setXp(user.getUser().getUser().getXp() - 1000);
+            }
+            toUpdateUser.add(user.getUser().getUser());
 
             for(Played p : stats.getPlayed()) {
                 if(p.getCharId().getId() == user.getCharackter().getId()) {
@@ -100,7 +115,6 @@ public class Game {
                     toUpdate.add(p);
                 }
             }
-
 
             //TODO figthlog
             ArrayList<LobbyUser> mates = new ArrayList<>();
@@ -143,29 +157,45 @@ public class Game {
         s3.beginTransaction();
         toUpdateF.forEach(s3::save);
         s3.getTransaction().commit();
+
+        Session s4 = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+        s4.beginTransaction();
+        toUpdateUser.forEach(s4::update);
+        s4.getTransaction().commit();
+
     }
 
     public void checkIfWon() {
         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
         ses.scheduleAtFixedRate(() -> {
+            int c0 = 0;
             for (LobbyUser u : users) {
                 if(u.getTeam() == 0) {
                     if(u.getCharackter().getHp() > 0) {
                         break;
                     }
-                    gameWon = true;
-                    gameWon(0);
+                    c0++;
                 }
-
             }
+            if(c0 == 3) {
+                gameWon = true;
+                gameWon(0);
+                ses.shutdownNow();
+            }
+            int c1 = 0;
             for (LobbyUser u : users) {
                 if(u.getTeam() == 1) {
                     if(u.getCharackter().getHp() > 0) {
                         break;
                     }
-                    gameWon = true;
-                    gameWon(1);
+                    c1++;
+
                 }
+            }
+            if(c1 == 3) {
+                gameWon = true;
+                gameWon(1);
+                ses.shutdownNow();
             }
         }, 20 , 3, TimeUnit.SECONDS);
     }

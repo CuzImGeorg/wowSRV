@@ -24,25 +24,27 @@ public class AbillityExec implements Serializable {
     public void execAbility(SenderObject so) {
         int ab = so.getAb();
 
-
         switch (getUser(so).getCharackter().getId()) {
             case 1 -> {
                 switch (ab) {
                     case 0 -> {
                         LobbyUser u = getUser(so);
-                        u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
-                        if(u.getCharackter().getHp() > u.getCharackter().getMaxHp()) u.getCharackter().setHp(u.getCharackter().getMaxHp());
-//                        for(LobbyUser u : users) {
-//                            if(u.getUser().getUser().getId() == so.getUser().getId()) {
-//                                u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
-//                                break;
-//                            }
-//                        }
+                        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                        ses.scheduleAtFixedRate(() -> {
+                            if(u.getCharackter().getHp() > 0) {
+                                u.getCharackter().setHp(u.getCharackter().getHp() + (int) ((u.getCharackter().getMaxHp() -u.getCharackter().getHp())*0.02));
+                                if(u.getCharackter().getHp() > u.getCharackter().getMaxHp()) u.getCharackter().setHp(u.getCharackter().getMaxHp());
+                            }else {
+
+                            }
+                        }, 1, 1, TimeUnit.SECONDS);
+
                     }
                     case  1 -> {
-                        int shield = (int) (so.getCharacter().getHp() * 0.1);
-                        LobbyUser  u = getUser(so);
+                        LobbyUser u = getUser(so);
                         Charakter c = u.getCharackter();
+                        int shield = (int) (c.getHp() * 0.1);
+
                         c.setShield(shield);
                         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
                         ses.schedule(()-> {
@@ -136,6 +138,7 @@ public class AbillityExec implements Serializable {
                         LobbyUser lu = getUser(so);
                         int heath = (int) (lu.getCharackter().getMaxHp() * 0.2);
                         lu.getCharackter().setMaxHp(lu.getCharackter().getMaxHp() + heath);
+                        lu.getCharackter().setHp(lu.getCharackter().getHp() + heath);
                         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
                         ses.schedule(()-> {
                             if(lu.getCharackter().getHp() > lu.getCharackter().getMaxHp() - heath) {
@@ -323,6 +326,7 @@ public class AbillityExec implements Serializable {
                         ses.scheduleAtFixedRate(() -> {
                             if(count.get() < 5) {
                                 makeDMG(so, false, (int) (lu.getCharackter().getAd() * 0.6));
+                                count.getAndIncrement();
                             }else {
                                 ses.shutdownNow();
                             }
@@ -475,7 +479,7 @@ public class AbillityExec implements Serializable {
     }
 
     public void makeDMG(SenderObject so, boolean aoe, int dmg) {
-        int team = 0;
+        int team = getUser(so).getTeam();
         if(aoe) {
             for(LobbyUser u : users) {
                 if(u.getTeam() != team) {
@@ -497,17 +501,13 @@ public class AbillityExec implements Serializable {
             }
 
         }else {
-
-            for (LobbyUser u : users) {
-                if(u.getUser().getUser().getId() == so.getUser().getId()) {
-                    team = u.getTeam();
-                }
-            }
-
+            int c = 0;
             for(LobbyUser u : users) {
                 if(u.getTeam() == team) {
                 } else {
+                    c++;
                     if(u.getCharackter().getKlasse().equalsIgnoreCase("tank")) {
+                        c=0;
                         if(u.getCharackter().getHp() > 0) {
                             if(u.getCharackter().getShield() > 0) {
                                 if(u.getCharackter().getShield() - dmg < 0) {
@@ -520,7 +520,7 @@ public class AbillityExec implements Serializable {
                             }else {
                                 u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
                             }
-
+                            break;
                         }else {
                             for (LobbyUser lu : users) {
                                 if (lu.getTeam() == team) {
@@ -539,6 +539,7 @@ public class AbillityExec implements Serializable {
                                             }else {
                                                 u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
                                             }
+                                            break;
                                         }else {
                                             for (LobbyUser lou : users) {
                                                 if (lou.getTeam() == team) {
@@ -557,8 +558,80 @@ public class AbillityExec implements Serializable {
                                                             }else {
                                                                 u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
                                                             }
+                                                            break;
                                                         }
                                                     }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }else if(c == 3) {
+                        c = 0;
+                        for (LobbyUser lu : users) {
+                            if (lu.getTeam() == team) {
+
+                            }else {
+                                c++;
+                                if(lu.getCharackter().getKlasse().equalsIgnoreCase("dps")) {
+                                    if(lu.getCharackter().getHp() > 0) {
+                                        if(u.getCharackter().getShield() > 0) {
+                                            if(u.getCharackter().getShield() - dmg < 0) {
+                                                int _tmp = dmg - u.getCharackter().getShield();
+                                                u.getCharackter().setHp(u.getCharackter().getHp() - _tmp );
+                                                u.getCharackter().setShield(0);
+                                            }else {
+                                                u.getCharackter().setShield(u.getCharackter().getShield() - dmg);
+                                            }
+                                        }else {
+                                            u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                        }
+                                        break;
+                                    }else {
+                                        for (LobbyUser lou : users) {
+                                            if (lou.getTeam() == team) {
+
+                                            }else {
+                                                if(lou.getCharackter().getKlasse().equalsIgnoreCase("sup")) {
+                                                    if(lou.getCharackter().getHp() > 0) {
+                                                        if(u.getCharackter().getShield() > 0) {
+                                                            if(u.getCharackter().getShield() - dmg < 0) {
+                                                                int _tmp = dmg - u.getCharackter().getShield();
+                                                                u.getCharackter().setHp(u.getCharackter().getHp() - _tmp );
+                                                                u.getCharackter().setShield(0);
+                                                            }else {
+                                                                u.getCharackter().setShield(u.getCharackter().getShield() - dmg);
+                                                            }
+                                                        }else {
+                                                            u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                                        }
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }else if(c==3) {
+                                    for (LobbyUser lou : users) {
+                                        if (lou.getTeam() == team) {
+
+                                        }else {
+                                            if(lou.getCharackter().getKlasse().equalsIgnoreCase("sup")) {
+                                                if(lou.getCharackter().getHp() > 0) {
+                                                    if(u.getCharackter().getShield() > 0) {
+                                                        if(u.getCharackter().getShield() - dmg < 0) {
+                                                            int _tmp = dmg - u.getCharackter().getShield();
+                                                            u.getCharackter().setHp(u.getCharackter().getHp() - _tmp );
+                                                            u.getCharackter().setShield(0);
+                                                        }else {
+                                                            u.getCharackter().setShield(u.getCharackter().getShield() - dmg);
+                                                        }
+                                                    }else {
+                                                        u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                                    }
+                                                    break;
                                                 }
                                             }
                                         }
@@ -570,6 +643,8 @@ public class AbillityExec implements Serializable {
                 }
             }
         }
+
+
     }
     public void makeDMGIgnoreSchield(SenderObject so, boolean aoe, int dmg) {
         int team = 0;
@@ -589,14 +664,16 @@ public class AbillityExec implements Serializable {
                     team = u.getTeam();
                 }
             }
-
+            int c = 0;
             for(LobbyUser u : users) {
                 if(u.getTeam() == team) {
                 } else {
+                    c++;
                     if(u.getCharackter().getKlasse().equalsIgnoreCase("tank")) {
+                        c=0;
                         if(u.getCharackter().getHp() > 0) {
                             u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
-
+                            break;
                         }else {
                             for (LobbyUser lu : users) {
                                 if (lu.getTeam() == team) {
@@ -605,7 +682,7 @@ public class AbillityExec implements Serializable {
                                     if(lu.getCharackter().getKlasse().equalsIgnoreCase("dps")) {
                                         if(lu.getCharackter().getHp() > 0) {
                                             u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
-
+                                            break;
                                         }else {
                                             for (LobbyUser lou : users) {
                                                 if (lou.getTeam() == team) {
@@ -615,9 +692,51 @@ public class AbillityExec implements Serializable {
                                                         if(lou.getCharackter().getHp() > 0) {
 
                                                             u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
-
+                                                            break;
                                                         }
                                                     }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }else if(c == 3) {
+                        c = 0;
+                        for (LobbyUser lu : users) {
+                            c++;
+                            if (lu.getTeam() == team) {
+
+                            }else {
+                                if(lu.getCharackter().getKlasse().equalsIgnoreCase("dps")) {
+                                    if(lu.getCharackter().getHp() > 0) {
+                                        u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                        break;
+                                    }else {
+                                        for (LobbyUser lou : users) {
+                                            if (lou.getTeam() == team) {
+
+                                            }else {
+                                                if(lou.getCharackter().getKlasse().equalsIgnoreCase("sup")) {
+                                                    if(lou.getCharackter().getHp() > 0) {
+                                                        u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }else if (c == 3) {
+                                    for (LobbyUser lou : users) {
+                                        if (lou.getTeam() == team) {
+
+                                        }else {
+                                            if(lou.getCharackter().getKlasse().equalsIgnoreCase("sup")) {
+                                                if(lou.getCharackter().getHp() > 0) {
+
+                                                    u.getCharackter().setHp(u.getCharackter().getHp() - dmg);
+                                                    break;
                                                 }
                                             }
                                         }

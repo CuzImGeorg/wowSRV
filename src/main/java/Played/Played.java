@@ -2,10 +2,14 @@ package Played;
 
 import Character.Charakter;
 
-public class Played {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Played implements Serializable {
     private int id, games, wins, statsId;
     private Charakter charId;
-
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
 
     public Played(int id, int games, Charakter charId, int wins, int statsId) {
         this.id = id;

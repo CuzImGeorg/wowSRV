@@ -18,6 +18,7 @@ public class UserManager {
         List<Object[]> rows = s.list();
 
        if(rows.size() == 0) {
+           session.getTransaction().commit();
            return null;
        }
 

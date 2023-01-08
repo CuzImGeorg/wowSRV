@@ -14,6 +14,12 @@
         <property name="description" type="string">
             <column name="description" />
         </property>
+        <property name="aid" type="int">
+            <column name="aid" />
+        </property>
+        <property name="cd" type="int">
+            <column name="cd" />
+        </property>
         <many-to-one name="charid" class="Character.Charakter" lazy="false">
             <column name="charid"  not-null="true"/>
         </many-to-one>

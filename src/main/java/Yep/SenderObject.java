@@ -6,8 +6,10 @@ import Queue.QueueUser;
 import Stats.Stats;
 import Character.Settings;
 import java.io.Serial;
+import Character.Fightlog;
 import java.io.Serializable;
 import java.util.ArrayList;
+import NameHistory.PasswordHistory;
 
 public class SenderObject  implements Serializable {
     private Instruction instruction;
@@ -21,6 +23,8 @@ public class SenderObject  implements Serializable {
     private int ab;
     private String newUsername;
     private ArrayList<NameHistory> nameHistory;
+    private ArrayList<PasswordHistory> pwdHistory;
+    private ArrayList<Fightlog> fightlogs;
     private int teamWon;
     private Settings settings;
     private QueueUser queueUser1;
@@ -186,5 +190,21 @@ public class SenderObject  implements Serializable {
 
     public void setQueueUser6(QueueUser queueUser6) {
         this.queueUser6 = queueUser6;
+    }
+
+    public ArrayList<PasswordHistory> getPwdHistory() {
+        return pwdHistory;
+    }
+
+    public void setPwdHistory(ArrayList<PasswordHistory> pwdHistory) {
+        this.pwdHistory = pwdHistory;
+    }
+
+    public ArrayList<Fightlog> getFightlogs() {
+        return fightlogs;
+    }
+
+    public void setFightlogs(ArrayList<Fightlog> fightlogs) {
+        this.fightlogs = fightlogs;
     }
 }

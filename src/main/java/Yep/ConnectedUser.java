@@ -21,9 +21,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import NameHistory.PasswordHistory;
+import NameHistory.PasswordHitoryMgr;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import Character.FightlogMgr;
 
 import static Yep.Instruction.*;
 
@@ -99,6 +102,13 @@ public class ConnectedUser {
                     session.save(n);
                     session.getTransaction().commit();
 
+                    PasswordHistory ph = PasswordHitoryMgr.getDefautValues(u.getId());
+                    session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                    session.beginTransaction();
+                    session.save(ph);
+                    session.getTransaction().commit();
+
+
                     session = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
                     Settings settings = SettingsMgr.getDefautValues(u.getId());
                     session.beginTransaction();
@@ -143,7 +153,7 @@ public class ConnectedUser {
                     s.setUser(user);
                     objectOutputStream.writeObject(s);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+
                 }
 
                 SenderObject so = new SenderObject( REQUESTUSER);
@@ -196,12 +206,9 @@ public class ConnectedUser {
                     c.setName(charakter.getName());
                     c.setKlasse(charakter.getKlasse());
                     c.setA(charakter.getA());
-                    System.out.println(user.getUsername() + " " + c.getName());
                 }
                 try {
-                    System.out.println("Hardstuck");
                     getObjectOutputStream().writeUnshared(so);
-                    System.out.println("Not Hardstuck");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -245,7 +252,15 @@ public class ConnectedUser {
                 if(abillityExec != null) {
                     senderObject.setUser(user);
                     abillityExec.execAbility(senderObject);
+                    System.out.println(senderObject.getUser() + " " + senderObject.getAb());
                 }
+            }
+            case SAVESETTINGS -> {
+                Session s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                s.beginTransaction();
+                s.update(senderObject.getSettings());
+                s.getTransaction().commit();
+
             }
             case REQPSTATS -> {
                 SenderObject s = new SenderObject(Instruction.REQPSTATS);
@@ -266,10 +281,51 @@ public class ConnectedUser {
                 s.save(nh);
                 s.getTransaction().commit();
                 user.setUsername(senderObject.getNewUsername());
+                SenderObject so = new SenderObject(CHANGENAME);
                 s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
                 s.beginTransaction();
-                s.update(user);
+                try {
+                    s.update(user);
+                    so.setCode(1);
+                    s.getTransaction().commit();
+                }catch (Exception e) {
+                    s.getTransaction().rollback();
+                    so.setCode(99);
+                }
+                try {
+                    objectOutputStream.writeObject(so);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case CHANGEPWD -> {
+                Session s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                s.beginTransaction();
+                List l = s.createQuery(" SELECT max(changed)  FROM PasswordHistory WHERE userid = " + user.getId()).list();
                 s.getTransaction().commit();
+                PasswordHistory nh = new PasswordHistory(Integer.parseInt(l.get(0).toString()) +1, user, LocalDateTime.now().toString(), senderObject.getNewUsername());
+                s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                s.beginTransaction();
+                s.save(nh);
+                s.getTransaction().commit();
+                user.setPassword(senderObject.getNewUsername());
+                SenderObject so = new SenderObject(CHANGEPWD);
+                s = Start.getHibernateUtil().getSessionFactory().getCurrentSession();
+                s.beginTransaction();
+                try {
+                    s.update(user);
+                    so.setCode(1);
+                    s.getTransaction().commit();
+                }catch (Exception e) {
+                    s.getTransaction().rollback();
+                    so.setCode(99);
+                }
+                try {
+                    objectOutputStream.writeObject(so);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
             case REQNAMEHISTORY -> {
                 SenderObject s = new SenderObject(Instruction.REQNAMEHISTORY);
@@ -281,20 +337,38 @@ public class ConnectedUser {
                     throw new RuntimeException(e);
                 }
             }
+            case REQPWDHISTORY -> {
+                SenderObject s = new SenderObject(Instruction.REQNAMEHISTORY);
+                ArrayList<PasswordHistory> names = PasswordHitoryMgr.load(user.getId());
+                s.setPwdHistory(names);
+                try {
+                    objectOutputStream.writeObject(s);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case REQFIGHTLOG -> {
+                SenderObject so = new SenderObject(Instruction.REQFIGHTLOG);
+                so.setFightlogs(FightlogMgr.load(user.getId()));
+                try {
+                    objectOutputStream.writeObject(so);
+                } catch (IOException e) {
+
+                }
+
+
+            }
             case REQGAMEUSER -> {
-                System.out.println("User Requested");
                 SenderObject so = new SenderObject(Instruction.REQUESTUSER);
                 ArrayList<QueueUser> qu = new ArrayList<>();
                 for (LobbyUser u : lobby.getUsers()) {
                     qu.add(new QueueUser(u.getUser().getUser(), u.getCharackter(), u.getTeam()));
                 }
-                try {
-                    qu.forEach((wqewqe) -> System.out.println(wqewqe.getCharackter().getName()));
-                } catch (NullPointerException ignore) {
-
-                }
                 so.setQueueUsers(qu);
+
                 try {
+                    objectOutputStream.flush();
+                    objectOutputStream.reset();
                     getObjectOutputStream().writeUnshared(so);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

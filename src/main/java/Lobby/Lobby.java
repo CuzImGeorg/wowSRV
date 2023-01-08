@@ -38,7 +38,7 @@ public class Lobby {
                 System.out.println("Sendetto " + u.getUser().getUser().getUsername() );
                 u.getUser().getObjectOutputStream().writeObject(s);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+
             }
 
         }

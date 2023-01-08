@@ -31,5 +31,6 @@
 		<mapping resource="usernamehistory.xml" />
 		<mapping resource="fightlog.xml" />
 		<mapping resource="settings.xml" />
+		<mapping resource="passwordhistory.xml" />
 	</session-factory>
 </hibernate-configuration>

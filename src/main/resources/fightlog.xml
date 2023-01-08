@@ -31,6 +31,9 @@
         <many-to-one name="mate1" class="Yep.User">
             <column name="mate1"/>
         </many-to-one>
+        <many-to-one name="mate2" class="Yep.User">
+            <column name="mate2"/>
+        </many-to-one>
         <many-to-one name="enemy1" class="Yep.User">
             <column name="enemy1"/>
         </many-to-one>
