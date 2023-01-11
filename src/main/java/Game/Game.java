@@ -129,7 +129,9 @@ public class Game {
                 }
             }
 
-            Fightlog f = new Fightlog((teamWon == user.getTeam()), (user.getCharackter().getHp() > 0), killCounter, (min + ":" + sec), LocalDateTime.now().toString(),
+            boolean won;
+            won = teamWon == user.getTeam();
+            Fightlog f = new Fightlog(won, (user.getCharackter().getHp() > 0), killCounter, (min + ":" + sec), LocalDateTime.now().toString(),
                                        user.getUser().getUser(), mates.get(0).getUser().getUser(), mates.get(1).getUser().getUser(),
                                        enemys.get(0).getUser().getUser() , enemys.get(1).getUser().getUser(), enemys.get(2).getUser().getUser(),
                                        user.getCharackter(), mates.get(0).getCharackter(), mates.get(1).getCharackter(),

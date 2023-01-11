@@ -5,10 +5,12 @@ import Yep.SenderObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AbillityExec implements Serializable {
@@ -478,7 +480,7 @@ public class AbillityExec implements Serializable {
         return null;
     }
 
-    public void makeDMG(SenderObject so, boolean aoe, int dmg) {
+    public void makeDMG_old(SenderObject so, boolean aoe, int dmg) {
         int team = getUser(so).getTeam();
         if(aoe) {
             for(LobbyUser u : users) {
@@ -647,7 +649,7 @@ public class AbillityExec implements Serializable {
 
     }
     public void makeDMGIgnoreSchield(SenderObject so, boolean aoe, int dmg) {
-        int team = 0;
+        int team = getUser(so).getTeam();
         if(aoe) {
             for(LobbyUser u : users) {
                 if(u.getTeam() != team) {
@@ -659,11 +661,6 @@ public class AbillityExec implements Serializable {
 
         }else {
 
-            for (LobbyUser u : users) {
-                if(u.getUser().getUser().getId() == so.getUser().getId()) {
-                    team = u.getTeam();
-                }
-            }
             int c = 0;
             for(LobbyUser u : users) {
                 if(u.getTeam() == team) {
@@ -749,6 +746,117 @@ public class AbillityExec implements Serializable {
             }
         }
     }
+
+    public void makeDMG(SenderObject so, boolean aoe, int dmg){
+        LobbyUser user = getUser(so);
+        ArrayList<LobbyUser> enemys = new ArrayList<>();
+        HashMap<LobbyUser, String> userChampHashMap = new HashMap<>();
+        users.forEach((u) -> {
+            if(u.getTeam() != user.getTeam()) enemys.add(u);
+        });
+        enemys.forEach((e) -> {
+            userChampHashMap.put(e, e.getCharackter().getKlasse());
+        });
+
+        if(aoe) {
+            enemys.forEach((user1) -> {
+                if(user1.getCharackter().getHp() > 0) {
+                    if(user1.getCharackter().getShield() > 0) {
+                        if(user1.getCharackter().getShield() - dmg < 0) {
+                            int _tmp = dmg - user1.getCharackter().getShield();
+                            user1.getCharackter().setHp(user1.getCharackter().getHp() - _tmp );
+                            user1.getCharackter().setShield(0);
+                        }else {
+                            user1.getCharackter().setShield(user1.getCharackter().getShield() - dmg);
+                        }
+                    }else {
+                        user1.getCharackter().setHp(user1.getCharackter().getHp() - dmg);
+                    }
+
+                }
+            });
+
+
+        }
+        else {
+            AtomicBoolean fuckuniggas = new AtomicBoolean(false);
+            userChampHashMap.forEach((k ,v) -> {
+                if(v.equalsIgnoreCase("TANK")) {
+                    if(k.getCharackter().getHp() > 0) {
+                        if(k.getCharackter().getShield() > 0) {
+                            if(k.getCharackter().getShield() - dmg < 0) {
+                                int _tmp = dmg - k.getCharackter().getShield();
+                                k.getCharackter().setHp(k.getCharackter().getHp() - _tmp );
+                                k.getCharackter().setShield(0);
+                            }else {
+                                k.getCharackter().setShield(k.getCharackter().getShield() - dmg);
+                            }
+
+                        }else {
+                            k.getCharackter().setHp(k.getCharackter().getHp() - dmg);
+                        }
+                        System.out.println("DMG: " + dmg +  "->" + k.getCharackter().getName());
+                        fuckuniggas.set(true);
+                        return;
+                    }
+                    System.out.println("klassnotworkingexeptiop:"  + v);
+
+                }
+            });
+            if(fuckuniggas.get()) return;
+            userChampHashMap.forEach((k ,v) -> {
+                if(v.equalsIgnoreCase("dps")) {
+                    if(k.getCharackter().getHp() > 0) {
+                        if(k.getCharackter().getShield() > 0) {
+                            if(k.getCharackter().getShield() - dmg < 0) {
+                                int _tmp = dmg - k.getCharackter().getShield();
+                                k.getCharackter().setHp(k.getCharackter().getHp() - _tmp );
+                                k.getCharackter().setShield(0);
+                            }else {
+                                k.getCharackter().setShield(k.getCharackter().getShield() - dmg);
+                            }
+
+                        }else {
+                            k.getCharackter().setHp(k.getCharackter().getHp() - dmg);
+                        }
+
+                        fuckuniggas.set(true);
+                        return;
+                    }
+                }
+            });
+            if(fuckuniggas.get()) return;
+
+            userChampHashMap.forEach((k ,v) -> {
+                if(v.equalsIgnoreCase("sup")) {
+                    if(k.getCharackter().getHp() > 0) {
+                        if(k.getCharackter().getShield() > 0) {
+                            if(k.getCharackter().getShield() - dmg < 0) {
+                                int _tmp = dmg - k.getCharackter().getShield();
+                                k.getCharackter().setHp(k.getCharackter().getHp() - _tmp );
+                                k.getCharackter().setShield(0);
+                            }else {
+                                k.getCharackter().setShield(k.getCharackter().getShield() - dmg);
+                            }
+
+                        }else {
+                            k.getCharackter().setHp(k.getCharackter().getHp() - dmg);
+                        }
+
+
+                        return;
+                    }
+                }
+            });
+
+
+
+        }
+
+
+    }
+
+
 
     public ArrayList<LobbyUser> getUsers() {
         return users;
